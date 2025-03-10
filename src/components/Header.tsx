@@ -74,14 +74,11 @@ const Header = () => {
     return `${baseStyle} ${activeStyle}`;
   };
 
-  const handleNavigation = (event) => {
-    event.preventDefault();
-    const targetId = event.currentTarget.getAttribute('href').substring(1);
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-    }
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
 
   return (
@@ -90,6 +87,7 @@ const Header = () => {
         <div className="flex justify-center items-center h-16 space-x-16">
           <Link 
             to="/" 
+            onClick={scrollToTop}
             className="text-gray-800 hover:text-blue-600 font-medium transition-colors"
             style={{ padding: '10px 20px' }}
           >
@@ -103,6 +101,7 @@ const Header = () => {
           >
             <Link 
               to={menuItems.features[0].to}
+              onClick={scrollToTop}
               className={getMenuStyle('features')}
               style={{ padding: '10px 20px' }}
             >
@@ -118,6 +117,7 @@ const Header = () => {
           >
             <Link 
               to={menuItems.notice[0].to}
+              onClick={scrollToTop}
               className={getMenuStyle('notice')}
               style={{ padding: '10px 20px' }}
             >
@@ -133,6 +133,7 @@ const Header = () => {
           >
             <Link 
               to={menuItems.developer[0].to}
+              onClick={scrollToTop}
               className={getMenuStyle('developer')}
               style={{ padding: '10px 20px' }}
             >
