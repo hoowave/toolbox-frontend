@@ -4,10 +4,17 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <footer className="bg-gray-50 border-t border-gray-200">
       <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           {/* About Section */}
           <div className="text-center">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">About ToolBox</h3>
@@ -22,17 +29,29 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/cut-url" className="text-gray-600 hover:text-blue-600 text-sm transition-colors">
+                <Link 
+                  to="/cut-url" 
+                  onClick={scrollToTop}
+                  className="text-gray-600 hover:text-blue-600 text-sm transition-colors"
+                >
                   URL 단축
                 </Link>
               </li>
               <li>
-                <Link to="/apiTest" className="text-gray-600 hover:text-blue-600 text-sm transition-colors">
+                <Link 
+                  to="/apiTest" 
+                  onClick={scrollToTop}
+                  className="text-gray-600 hover:text-blue-600 text-sm transition-colors"
+                >
                   API 테스트
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-600 hover:text-blue-600 text-sm transition-colors">
+                <Link 
+                  to="/about" 
+                  onClick={scrollToTop}
+                  className="text-gray-600 hover:text-blue-600 text-sm transition-colors"
+                >
                   개발자 소개
                 </Link>
               </li>
@@ -40,33 +59,33 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div>
+          <div className="text-center">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Contact</h3>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li className="flex items-center space-x-2">
+              <li className="flex items-center justify-center">
                 <span>📧</span>
-                <a href="mailto:contact@example.com" className="hover:text-blue-600 transition-colors">
+                <a href="mailto:contact@example.com" className="hover:text-blue-600 transition-colors ml-2">
                   contact@example.com
                 </a>
               </li>
-              <li className="flex items-center space-x-2">
+              <li className="flex items-center justify-center">
                 <span>💻</span>
                 <a 
                   href="https://github.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="hover:text-blue-600 transition-colors"
+                  className="hover:text-blue-600 transition-colors ml-2"
                 >
                   GitHub
                 </a>
               </li>
-              <li className="flex items-center space-x-2">
+              <li className="flex items-center justify-center">
                 <span>📝</span>
                 <a 
                   href="https://your-blog.tistory.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="hover:text-blue-600 transition-colors"
+                  className="hover:text-blue-600 transition-colors ml-2"
                 >
                   기술 블로그
                 </a>

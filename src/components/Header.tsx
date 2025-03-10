@@ -8,6 +8,10 @@ interface DropdownMenuProps {
 }
 
 const DropdownMenu = ({ items, isOpen }: DropdownMenuProps) => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -22,6 +26,7 @@ const DropdownMenu = ({ items, isOpen }: DropdownMenuProps) => {
             <Link
               key={index}
               to={item.to}
+              onClick={scrollToTop}
               className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
             >
               {item.label}
@@ -69,6 +74,16 @@ const Header = () => {
     return `${baseStyle} ${activeStyle}`;
   };
 
+  const handleNavigation = (event) => {
+    event.preventDefault();
+    const targetId = event.currentTarget.getAttribute('href').substring(1);
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="bg-white shadow-md">
       <nav className="container mx-auto px-6">
@@ -76,6 +91,7 @@ const Header = () => {
           <Link 
             to="/" 
             className="text-gray-800 hover:text-blue-600 font-medium transition-colors"
+            style={{ padding: '10px 20px' }}
           >
             홈
           </Link>
@@ -88,6 +104,7 @@ const Header = () => {
             <Link 
               to={menuItems.features[0].to}
               className={getMenuStyle('features')}
+              style={{ padding: '10px 20px' }}
             >
               서비스
             </Link>
@@ -102,6 +119,7 @@ const Header = () => {
             <Link 
               to={menuItems.notice[0].to}
               className={getMenuStyle('notice')}
+              style={{ padding: '10px 20px' }}
             >
               공지 및 문의
             </Link>
@@ -116,6 +134,7 @@ const Header = () => {
             <Link 
               to={menuItems.developer[0].to}
               className={getMenuStyle('developer')}
+              style={{ padding: '10px 20px' }}
             >
               개발자
             </Link>
