@@ -53,8 +53,8 @@ const Header = () => {
     ],
     developer: [
       { label: '소개', to: '/about' },
-      { label: '기술블로그', to: 'https://blog.example.com' },
-      { label: 'Github', to: 'https://github.com' }
+      { label: '기술블로그', to: 'https://hoowave.tistory.com' },
+      { label: 'Github', to: 'https://github.com/hoowave' }
     ]
   };
 

@@ -64,14 +64,14 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-gray-600">
               <li className="flex items-center justify-center">
                 <span>📧</span>
-                <a href="mailto:contact@example.com" className="hover:text-blue-600 transition-colors ml-2">
-                  contact@example.com
+                <a href="mailto:tkdgns519@gmail.com" className="hover:text-blue-600 transition-colors ml-2">
+                  Email
                 </a>
               </li>
               <li className="flex items-center justify-center">
                 <span>💻</span>
                 <a 
-                  href="https://github.com" 
+                  href="https://github.com/hoowave" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-blue-600 transition-colors ml-2"
@@ -82,12 +82,12 @@ const Footer = () => {
               <li className="flex items-center justify-center">
                 <span>📝</span>
                 <a 
-                  href="https://your-blog.tistory.com" 
+                  href="https://hoowave.tistory.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-blue-600 transition-colors ml-2"
                 >
-                  기술 블로그
+                  Tech Blog
                 </a>
               </li>
             </ul>
