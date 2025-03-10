@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
@@ -34,7 +34,6 @@ const DropdownMenu = ({ items, isOpen }: DropdownMenuProps) => {
 };
 
 const Header = () => {
-  const location = useLocation();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const menuItems = {
