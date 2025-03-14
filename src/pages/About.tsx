@@ -173,21 +173,21 @@ const About = () => {
               <h2 className="text-2xl font-bold mb-6 text-gray-800">경력 및 경험</h2>
               <div className="space-y-6">
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="text-lg font-semibold text-gray-800">신입 백엔드 개발자</h3>
-                  <p className="text-sm text-gray-600 mt-1">2024.03 - 현재</p>
+                  <h3 className="text-lg font-semibold text-gray-800">추후 작성 예정</h3>
+                  <p className="text-sm text-gray-600 mt-1">1998.03.06 ~</p>
                   <ul className="mt-2 space-y-2 text-gray-600">
-                    <li>• Spring Boot, JPA를 활용한 백엔드 개발</li>
-                    <li>• RESTful API 설계 및 구현</li>
-                    <li>• 데이터베이스 설계 및 최적화</li>
+                    <li>• 추후</li>
+                    <li>• 작성</li>
+                    <li>• 예정</li>
                   </ul>
                 </div>
                 <div className="border-l-4 border-purple-500 pl-4">
                   <h3 className="text-lg font-semibold text-gray-800">개인 프로젝트</h3>
-                  <p className="text-sm text-gray-600 mt-1">2023.06 - 2024.02</p>
+                  <p className="text-sm text-gray-600 mt-1">1998.03.06 ~</p>
                   <ul className="mt-2 space-y-2 text-gray-600">
-                    <li>• React, TypeScript를 활용한 프론트엔드 개발</li>
-                    <li>• Spring Boot 기반 백엔드 서버 구축</li>
-                    <li>• AWS를 활용한 클라우드 인프라 구축</li>
+                    <li>• 추후</li>
+                    <li>• 작성</li>
+                    <li>• 예정</li>
                   </ul>
                 </div>
               </div>

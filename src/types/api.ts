@@ -14,6 +14,45 @@ export interface UrlShortenResponse {
 export type ToastType = 'success' | 'error';
 
 export interface ToastMessage {
-  type: ToastType;
+  type: 'success' | 'error';
   message: string;
-} 
+}
+
+export interface SignUpSuccessResponse {
+  responseType: "SUCCESS";
+  data: {
+    name: string;
+    userId: string;
+    email: string;
+    phone: string;
+  };
+  message: string;
+}
+
+export interface SignUpErrorResponse {
+  responseType: "ERROR";
+  message: string;
+}
+
+export type SignUpResponse = SignUpSuccessResponse | SignUpErrorResponse;
+
+export interface LoginRequest {
+  userId: string;
+  password: string;
+}
+
+export interface LoginSuccessResponse {
+  responseType: "SUCCESS";
+  data: {
+    userId: string;
+    token: string;
+  };
+  message: string;
+}
+
+export interface LoginErrorResponse {
+  responseType: "ERROR";
+  message: string;
+}
+
+export type LoginResponse = LoginSuccessResponse | LoginErrorResponse; 
