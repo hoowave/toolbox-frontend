@@ -93,6 +93,14 @@ const Index = () => {
         >
           누구나 필요한 서비스를, 누구나 쉽게 사용할 수 있도록.
         </motion.p>
+        <motion.p 
+          className="text-xl text-gray-600 max-w-2xl mx-auto text-red-500"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          현재 베타 버전으로 운영중입니다. 기능이 정상적으로 작동하지 않을 수 있습니다.
+        </motion.p>
       </motion.section>
 
       {/* Service Slider */}
@@ -178,7 +186,7 @@ const Index = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">사용자 후기</h2>
           
           {/* Review Form */}
-          <form onSubmit={handleReviewSubmit} className="mb-8">
+          {/* <form onSubmit={handleReviewSubmit} className="mb-8">
             <div className="flex gap-4">
               <input
                 type="text"
@@ -195,7 +203,7 @@ const Index = () => {
                 등록
               </button>
             </div>
-          </form>
+          </form> */}
 
           {/* Reviews List */}
           <div className="space-y-4">

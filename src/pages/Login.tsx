@@ -160,26 +160,6 @@ const Login = () => {
               )}
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-                  로그인 상태 유지
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <Link to="/forgot-password" className="text-blue-600 hover:text-blue-700">
-                  비밀번호 찾기
-                </Link>
-              </div>
-            </div>
-
             <button
               type="submit"
               disabled={isLoading}
@@ -202,12 +182,18 @@ const Login = () => {
             </div>
 
             <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm mb-2 text-gray-600">
                 아직 계정이 없으신가요?{' '}
                 <Link to="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
                   회원가입하기
                 </Link>
               </p>
+              <div className="text-sm text-gray-600">
+                비밀번호를 잊으셨나요?{' '}
+                <Link to="/forgot-password" className="text-blue-600 hover:text-blue-700 font-medium">
+                  비밀번호 찾기
+                </Link>
+              </div>
             </div>
           </div>
         </motion.div>
