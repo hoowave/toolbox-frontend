@@ -11,6 +11,7 @@ import Notice from '../pages/Notice';
 import Contact from '../pages/Contact';
 import Faq from '../pages/FAQ';
 import BoardDetail from '../pages/BoardDetail';
+import NotFound from '../pages/NotFound';
 
 const Router = () => {
   return (
@@ -20,15 +21,14 @@ const Router = () => {
       <Route path="/apiTest" element={<ApiTest />} />
       
       {/* Notice 라우트 */}
-      <Route path="/notice" element={<Navigate to="/notice/page/1" replace />} />
-      <Route path="/notice/page/:page" element={<Notice />} />
+      <Route path="/notice" element={<Navigate to="/notice/1" replace />} />
+      <Route path="/notice/:page" element={<Notice />} />
+      <Route path="/notice/details/:id" element={<BoardDetail />} />
       
       {/* Contact 라우트 */}
-      <Route path="/contact" element={<Navigate to="/contact/page/1" replace />} />
-      <Route path="/contact/page/:page" element={<Contact />} />
-
-      {/* 게시글 상세 라우트 */}
-      <Route path="/boards/:id" element={<BoardDetail />} />
+      <Route path="/contact" element={<Navigate to="/contact/1" replace />} />
+      <Route path="/contact/:page" element={<Contact />} />
+      <Route path="/contact/details/:id" element={<BoardDetail />} />
 
       <Route path="/faq" element={<Faq />} />
       <Route path="/about" element={<About />} />
@@ -36,6 +36,9 @@ const Router = () => {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/signup/success" element={<SignUpSuccess />} />
       <Route path="/profile" element={<Profile />} />
+
+      {/* 404 페이지 */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

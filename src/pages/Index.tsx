@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Toast from '../components/Toast';
+import { ToastMessage } from '../types/api';
 
 const ServiceSlide = ({ title, description, icon, link }: {
   title: string;
@@ -27,10 +29,11 @@ const ServiceSlide = ({ title, description, icon, link }: {
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [review, setReview] = useState('');
-  const [reviews, setReviews] = useState([
+  const [reviews] = useState([
     { id: 1, text: "URL 단축 서비스가 정말 편리해요!", date: "2024-03-15" },
     { id: 2, text: "API 테스트 도구가 직관적이고 사용하기 쉬워요.", date: "2024-03-14" }
   ]);
+  const [toast, setToast] = useState<ToastMessage | null>(null);
   
   const slides = [
     {
@@ -57,15 +60,10 @@ const Index = () => {
 
   const handleReviewSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (review.trim()) {
-      const newReview = {
-        id: reviews.length + 1,
-        text: review,
-        date: new Date().toISOString().split('T')[0]
-      };
-      setReviews([newReview, ...reviews]);
-      setReview('');
-    }
+    setToast({
+      type: 'error',
+      message: '현재 개발 중인 기능입니다.'
+    });
   };
 
   return (
@@ -186,7 +184,7 @@ const Index = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">사용자 후기</h2>
           
           {/* Review Form */}
-          {/* <form onSubmit={handleReviewSubmit} className="mb-8">
+          <form onSubmit={handleReviewSubmit} className="mb-8">
             <div className="flex gap-4">
               <input
                 type="text"
@@ -203,7 +201,7 @@ const Index = () => {
                 등록
               </button>
             </div>
-          </form> */}
+          </form>
 
           {/* Reviews List */}
           <div className="space-y-4">
@@ -222,6 +220,8 @@ const Index = () => {
           </div>
         </div>
       </motion.section>
+
+      <Toast toast={toast} onClose={() => setToast(null)} />
     </div>
   );
 };

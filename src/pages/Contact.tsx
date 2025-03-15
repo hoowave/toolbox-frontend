@@ -68,7 +68,7 @@ const Contact = () => {
 
   const handleRowClick = (contact: BoardItem) => {
     if (contact.id) {
-      navigate(`/boards/${contact.id}`);
+      navigate(`/contact/details/${contact.id}`);
     } else {
       setToast({
         type: 'error',
@@ -78,7 +78,7 @@ const Contact = () => {
   };
 
   const handlePageChange = (page: number) => {
-    navigate(`/contact/page/${page}`);
+    navigate(`/contact/${page}`);
   };
 
   if (isLoading) {

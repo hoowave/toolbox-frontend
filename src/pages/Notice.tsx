@@ -4,8 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { BoardItem, CategoryType, getBoardStatusInfo } from '../types/board';
 import { format } from 'date-fns';
 import { boardService } from '../services/boardService';
-import { ToastMessage } from '../types/api';
-import Toast from '../components/Toast';
 
 const Notice = () => {
   const navigate = useNavigate();
@@ -16,7 +14,6 @@ const Notice = () => {
   const [currentPage, setCurrentPage] = useState(Number(page) || 1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
-  const [toast, setToast] = useState<ToastMessage | null>(null);
 
   useEffect(() => {
     setCurrentPage(Number(page) || 1);
@@ -66,17 +63,14 @@ const Notice = () => {
 
   const handleRowClick = (notice: BoardItem) => {
     if (notice.id) {
-      navigate(`/boards/${notice.id}`);
+      navigate(`/notice/details/${notice.id}`);
     } else {
-      setToast({
-        type: 'error',
-        message: '유효하지 않은 게시글입니다.'
-      });
+      setError('유효하지 않은 게시글입니다.');
     }
   };
 
   const handlePageChange = (page: number) => {
-    navigate(`/notice/page/${page}`);
+    navigate(`/notice/${page}`);
   };
 
   if (isLoading) {

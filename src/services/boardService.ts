@@ -1,4 +1,4 @@
-import { BoardResponse, BoardDetailResponse, CategoryType, BoardItem, BoardDetail } from '../types/board';
+import { BoardResponse, BoardDetailResponse, CategoryType, BoardDetail } from '../types/board';
 
 const BASE_URL = 'http://127.0.0.1:8080';
 
