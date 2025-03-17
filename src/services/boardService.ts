@@ -1,6 +1,5 @@
 import { BoardResponse, BoardDetailResponse, CategoryType, BoardDetail } from '../types/board';
-
-const BASE_URL = 'http://127.0.0.1:8080';
+import { API_BASE_URL } from '../config';
 
 interface GetBoardsParams {
   category: CategoryType;
@@ -9,11 +8,17 @@ interface GetBoardsParams {
 
 export const boardService = {
   getBoards: async ({ category, page = 1 }: GetBoardsParams): Promise<BoardResponse> => {
+    const url = `${API_BASE_URL}/boards?category=${category}&page=${page}`;
+    
     try {
-      const apiPage = page - 1;
-      const response = await fetch(
-        `${BASE_URL}/boards?category=${category}&page=${apiPage}`
-      );
+      const response = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
       
       if (!response.ok) {
         throw new Error('서버 응답이 올바르지 않습니다.');
@@ -28,8 +33,17 @@ export const boardService = {
   },
 
   getBoardDetail: async (id: number): Promise<BoardDetailResponse> => {
+    const url = `${API_BASE_URL}/boards/${id}`;
+    
     try {
-      const response = await fetch(`${BASE_URL}/boards/${id}`);
+      const response = await fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
       
       if (!response.ok) {
         throw new Error('서버 응답이 올바르지 않습니다.');
@@ -43,7 +57,7 @@ export const boardService = {
 
   createBoard: async (data: Omit<BoardDetail, 'id' | 'hit' | 'status' | 'createdAt'>): Promise<BoardDetailResponse> => {
     try {
-      const response = await fetch(`${BASE_URL}/boards`, {
+      const response = await fetch(`${API_BASE_URL}/boards`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +77,7 @@ export const boardService = {
 
   updateBoard: async (id: number, data: Partial<BoardDetail>): Promise<BoardDetailResponse> => {
     try {
-      const response = await fetch(`${BASE_URL}/boards/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +97,7 @@ export const boardService = {
 
   deleteBoard: async (id: number): Promise<void> => {
     try {
-      const response = await fetch(`${BASE_URL}/boards/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
         method: 'DELETE',
       });
 
