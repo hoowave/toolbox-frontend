@@ -12,6 +12,7 @@ import Contact from '../pages/Contact';
 import Faq from '../pages/FAQ';
 import BoardDetail from '../pages/BoardDetail';
 import NotFound from '../pages/NotFound';
+import BoardWrite from '../pages/BoardWrite';
 
 const Router = () => {
   return (
@@ -29,6 +30,7 @@ const Router = () => {
       <Route path="/contact" element={<Navigate to="/contact/1" replace />} />
       <Route path="/contact/:page" element={<Contact />} />
       <Route path="/contact/details/:id" element={<BoardDetail />} />
+      <Route path="/contact/write" element={<BoardWrite />} />
 
       <Route path="/faq" element={<Faq />} />
       <Route path="/about" element={<About />} />
