@@ -16,6 +16,7 @@ export interface BoardItem {
   hit: number;
   status: BoardStatus;
   createdAt: string;
+  category: CategoryType;
 }
 
 export interface BoardDetail extends BoardItem {

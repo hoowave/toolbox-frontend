@@ -12,10 +12,11 @@ interface FormErrors {
 }
 
 interface LoginResponse {
-  responseType: string;
-  data?: {
-    userId: string;
+  responseType: 'SUCCESS' | 'ERROR';
+  data: {
     token: string;
+    userId: string;
+    role: 'USER' | 'ADMIN';
   };
   message: string;
 }
@@ -60,8 +61,8 @@ const Login = () => {
         const response = await login(formData) as LoginResponse;
 
         if (response.responseType === "SUCCESS" && response.data) {
-          // 토큰과 userId를 안전하게 저장
-          authLogin(response.data.token, response.data.userId);
+          // AuthContext의 login 함수 호출
+          authLogin(response);
           
           setToast({
             type: 'success',

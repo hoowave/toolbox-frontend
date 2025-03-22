@@ -1,111 +1,117 @@
-import { BoardResponse, BoardDetailResponse, CategoryType, BoardDetail } from '../types/board';
 import { API_BASE_URL } from '../config';
+import { BoardDetail, BoardItem, CategoryType } from '../types/board';
+import { ApiResponse } from '../types/api';
 
 interface GetBoardsParams {
   category: CategoryType;
-  page?: number;
+  page: number;
+}
+
+interface CreateBoardRequest {
+  category: CategoryType;
+  title: string;
+  content: string;
 }
 
 export const boardService = {
-  getBoards: async ({ category, page = 1 }: GetBoardsParams): Promise<BoardResponse> => {
-    const url = `${API_BASE_URL}/boards?category=${category}&page=${page}`;
-    
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error('서버 응답이 올바르지 않습니다.');
-      }
+  async getBoards({ category, page }: GetBoardsParams): Promise<ApiResponse<{ content: BoardItem[], totalNumber: number, totalPageNumber: number }>> {
+    const response = await fetch(`${API_BASE_URL}/boards?category=${category}&page=${page}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include'
+    });
 
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Error fetching boards:', error);
-      throw new Error('게시글 목록을 불러오는데 실패했습니다.');
+    if (!response.ok) {
+      throw new Error('Failed to fetch boards');
     }
+
+    return response.json();
   },
 
-  getBoardDetail: async (id: number): Promise<BoardDetailResponse> => {
-    const url = `${API_BASE_URL}/boards/${id}`;
-    
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error('서버 응답이 올바르지 않습니다.');
-      }
+  async getBoardDetail(id: number): Promise<ApiResponse<BoardDetail>> {
+    const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include'
+    });
 
-      return await response.json();
-    } catch (error) {
-      throw new Error('게시글을 불러오는데 실패했습니다.');
+    if (!response.ok) {
+      throw new Error('Failed to fetch board detail');
     }
+
+    return response.json();
   },
 
-  createBoard: async (data: Omit<BoardDetail, 'id' | 'hit' | 'status' | 'createdAt'>): Promise<BoardDetailResponse> => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/boards`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('서버 응답이 올바르지 않습니다.');
-      }
-
-      return await response.json();
-    } catch (error) {
-      throw new Error('게시글 작성에 실패했습니다.');
+  async createBoard(data: CreateBoardRequest, token: string): Promise<ApiResponse<BoardDetail>> {
+    if (!token) {
+      throw new Error('No token found');
     }
+
+    const response = await fetch(`${API_BASE_URL}/boards`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        category: data.category,
+        title: data.title,
+        content: data.content
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create board');
+    }
+
+    return response.json();
   },
 
-  updateBoard: async (id: number, data: Partial<BoardDetail>): Promise<BoardDetailResponse> => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('서버 응답이 올바르지 않습니다.');
-      }
-
-      return await response.json();
-    } catch (error) {
-      throw new Error('게시글 수정에 실패했습니다.');
+  async updateBoard(id: number, data: Partial<BoardDetail>, token: string): Promise<ApiResponse<BoardDetail>> {
+    if (!token) {
+      throw new Error('No token found');
     }
+
+    const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update board');
+    }
+
+    return response.json();
   },
 
-  deleteBoard: async (id: number): Promise<void> => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('서버 응답이 올바르지 않습니다.');
-      }
-    } catch (error) {
-      throw new Error('게시글 삭제에 실패했습니다.');
+  async deleteBoard(id: number, token: string): Promise<ApiResponse<void>> {
+    if (!token) {
+      throw new Error('No token found');
     }
+
+    const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include'
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete board');
+    }
+
+    return response.json();
   }
 }; 

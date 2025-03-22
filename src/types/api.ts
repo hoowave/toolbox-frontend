@@ -14,7 +14,7 @@ export interface UrlShortenResponse {
 export type ToastType = 'success' | 'error';
 
 export interface ToastMessage {
-  type: 'success' | 'error';
+  type: 'success' | 'error' | 'info';
   message: string;
 }
 
@@ -55,4 +55,10 @@ export interface LoginErrorResponse {
   message: string;
 }
 
-export type LoginResponse = LoginSuccessResponse | LoginErrorResponse; 
+export type LoginResponse = LoginSuccessResponse | LoginErrorResponse;
+
+export interface ApiResponse<T> {
+  responseType: 'SUCCESS' | 'ERROR';
+  data: T;
+  message?: string;
+} 

@@ -1,16 +1,24 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { BoardDetail as BoardDetailType, getBoardStatusInfo } from '../types/board';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { BoardDetail as BoardDetailType, getBoardStatusInfo, BoardStatus } from '../types/board';
 import { format } from 'date-fns';
 import { boardService } from '../services/boardService';
+import { useAuth } from '../contexts/AuthContext';
+import './BoardDetail.css';
 
 const BoardDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuth();
   const [board, setBoard] = useState<BoardDetailType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // URL에서 현재 카테고리 추출
+  const category = location.pathname.split('/')[1];
 
   useEffect(() => {
     const fetchBoardDetail = async () => {
@@ -28,6 +36,39 @@ const BoardDetail = () => {
 
     fetchBoardDetail();
   }, [id]);
+
+  const handleEdit = () => {
+    navigate(`/${category}/edit/${id}`);
+    setIsMenuOpen(false);
+  };
+
+  const handleToggleVisibility = async () => {
+    if (!board) return;
+    
+    try {
+      await boardService.updateBoard(board.id, {
+        status: board.status === BoardStatus.VISIBLE ? BoardStatus.HIDDEN : BoardStatus.VISIBLE
+      });
+      // 상태 업데이트 후 게시글 다시 불러오기
+      const response = await boardService.getBoardDetail(board.id);
+      setBoard(response.data);
+    } catch (err) {
+      setError('게시글 상태 변경에 실패했습니다.');
+    }
+    setIsMenuOpen(false);
+  };
+
+  const handleDelete = async () => {
+    if (!board || !window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) return;
+    
+    try {
+      await boardService.deleteBoard(board.id);
+      navigate(`/${category}/page/1`);
+    } catch (err) {
+      setError('게시글 삭제에 실패했습니다.');
+    }
+    setIsMenuOpen(false);
+  };
 
   const formatDate = (dateStr: string) => {
     try {
@@ -81,6 +122,8 @@ const BoardDetail = () => {
     );
   }
 
+  const isAuthor = user?.userId === board.author;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -92,7 +135,7 @@ const BoardDetail = () => {
         <div className="p-8">
           <div className="flex items-center justify-between mb-6">
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => navigate(`/${category}/1`)}
               className="text-gray-600 hover:text-gray-900 transition-colors"
             >
               ← 목록으로
@@ -115,11 +158,50 @@ const BoardDetail = () => {
             </div>
           </div>
 
-          <div className="prose max-w-none">
-            {board.content}
-          </div>
+          <div 
+            className="prose"
+            dangerouslySetInnerHTML={{ __html: board.content }}
+          />
         </div>
       </div>
+
+      {isAuthor && (
+        <div className="flex justify-end mt-4">
+          <div className="relative">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none shadow-sm"
+            >
+              관리 메뉴 {isMenuOpen ? '▲' : '▼'}
+            </button>
+            
+            {isMenuOpen && (
+              <div className="absolute right-0 bottom-full mb-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                <div className="py-1" role="menu">
+                  <button
+                    onClick={handleEdit}
+                    className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                  >
+                    수정하기
+                  </button>
+                  <button
+                    onClick={handleToggleVisibility}
+                    className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                  >
+                    {board.status === BoardStatus.VISIBLE ? '숨기기' : '보이기'}
+                  </button>
+                  <button
+                    onClick={handleDelete}
+                    className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100 text-left border-t border-gray-100"
+                  >
+                    삭제하기
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };

@@ -1,73 +1,59 @@
-import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
-interface AuthContextType {
-  isLoggedIn: boolean;
-  userId: string | null;
-  login: (token: string, id: string) => void;
-  logout: () => void;
-  checkAuthStatus: () => void;
+interface User {
+  userId: string;
+  role: 'USER' | 'ADMIN';
+  token: string;
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
+interface LoginResponse {
+  responseType: 'SUCCESS' | 'ERROR';
+  data: {
+    token: string;
+    userId: string;
+    role: 'USER' | 'ADMIN';
+  };
+  message: string;
+}
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
+interface AuthContextType {
+  user: User | null;
+  login: (response: LoginResponse) => void;
+  logout: () => void;
+  isAuthenticated: boolean;
+}
 
-  const checkAuthStatus = useCallback(() => {
-    const token = localStorage.getItem('token');
-    const storedUserId = localStorage.getItem('userId');
+export const AuthContext = createContext<AuthContextType | null>(null);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+
+  const login = (response: LoginResponse) => {
+    const userData: User = {
+      userId: response.data.userId,
+      role: response.data.role,
+      token: response.data.token
+    };
     
-    if (token && storedUserId) {
-      setIsLoggedIn(true);
-      setUserId(storedUserId);
-    } else {
-      setIsLoggedIn(false);
-      setUserId(null);
-    }
-  }, []);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setUser(userData);
+  };
 
-  useEffect(() => {
-    checkAuthStatus();
-  }, [checkAuthStatus]);
-
-  useEffect(() => {
-    window.addEventListener('storage', checkAuthStatus);
-    return () => window.removeEventListener('storage', checkAuthStatus);
-  }, [checkAuthStatus]);
-
-  const login = useCallback((token: string, id: string) => {
-    try {
-      localStorage.setItem('token', token);
-      localStorage.setItem('userId', id);
-      setIsLoggedIn(true);
-      setUserId(id);
-    } catch (error) {
-      console.error('로그인 상태 저장 중 오류 발생:', error);
-    }
-  }, []);
-
-  const logout = useCallback(() => {
-    try {
-      localStorage.removeItem('token');
-      localStorage.removeItem('userId');
-      setIsLoggedIn(false);
-      setUserId(null);
-    } catch (error) {
-      console.error('로그아웃 처리 중 오류 발생:', error);
-    }
-  }, []);
-
-  const value = {
-    isLoggedIn,
-    userId,
-    login,
-    logout,
-    checkAuthStatus
+  const logout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={value}>
+    <AuthContext.Provider value={{ 
+      user, 
+      login, 
+      logout, 
+      isAuthenticated: !!user 
+    }}>
       {children}
     </AuthContext.Provider>
   );

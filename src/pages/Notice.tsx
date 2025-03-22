@@ -117,6 +117,9 @@ const Notice = () => {
               <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-40">
                 작성일
               </th>
+              <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
+                조회수
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -153,12 +156,15 @@ const Notice = () => {
                   <td className="px-4 py-3 whitespace-nowrap text-center">
                     <div className="text-sm text-gray-500">{formatDate(notice.createdAt)}</div>
                   </td>
+                  <td className="px-4 py-3 whitespace-nowrap text-center">
+                    <div className="text-sm text-gray-500">{notice.hit}</div>
+                  </td>
                 </motion.tr>
               );
             })}
             {notices.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-3 text-center text-gray-500">
+                <td colSpan={5} className="px-4 py-3 text-center text-gray-500">
                   공지사항이 없습니다.
                 </td>
               </tr>

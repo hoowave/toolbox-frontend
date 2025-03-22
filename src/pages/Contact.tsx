@@ -6,9 +6,11 @@ import { format } from 'date-fns';
 import Toast from '../components/Toast';
 import { ToastMessage } from '../types/api';
 import { boardService } from '../services/boardService';
+import { useAuth } from '../contexts/AuthContext';
 
 const Contact = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const { page } = useParams<{ page: string }>();
   const [contacts, setContacts] = useState<BoardItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -127,12 +129,15 @@ const Contact = () => {
               <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-40">
                 작성일
               </th>
+              <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
+                조회수
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {contacts.map((contact, index) => {
               const statusInfo = getBoardStatusInfo(contact.status);
-              const itemNumber = (currentPage - 1) * 10 + index + 1;
+              const itemNumber = (currentPage - 1) * 5 + index + 1;
               return (
                 <motion.tr
                   key={contact.id}
@@ -163,12 +168,15 @@ const Contact = () => {
                   <td className="px-4 py-3 whitespace-nowrap text-center">
                     <div className="text-sm text-gray-500">{formatDate(contact.createdAt)}</div>
                   </td>
+                  <td className="px-4 py-3 whitespace-nowrap text-center">
+                    <div className="text-sm text-gray-500">{contact.hit}</div>
+                  </td>
                 </motion.tr>
               );
             })}
             {contacts.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-3 text-center text-gray-500">
+                <td colSpan={5} className="px-4 py-3 text-center text-gray-500">
                   문의내역이 없습니다.
                 </td>
               </tr>
@@ -178,12 +186,18 @@ const Contact = () => {
       </div>
 
       <div className="mt-4 flex justify-between items-center">
-        <button
-          onClick={() => navigate('/contact/write')}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
-        >
-          문의하기
-        </button>
+        {user ? (
+          <button
+            onClick={() => navigate('/contact/write')}
+            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+          >
+            문의하기
+          </button>
+        ) : (
+          <div className="text-sm text-gray-500">
+            문의하기는 로그인 후 이용 가능합니다.
+          </div>
+        )}
         <div className="text-sm text-gray-500">
           총 {totalCount}개의 문의
         </div>

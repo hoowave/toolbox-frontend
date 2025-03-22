@@ -47,7 +47,7 @@ const DropdownMenu = ({ items, isOpen }: DropdownMenuProps) => {
 const Header = () => {
   const navigate = useNavigate();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const { isLoggedIn, userId, logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const menuItems = {
     features: [
@@ -156,7 +156,7 @@ const Header = () => {
           </div>
 
           <div className="flex items-center justify-end w-full sm:w-1/5 order-1 sm:order-none mb-2 sm:mb-0">
-            {isLoggedIn ? (
+            {user ? (
               <div
                 className="relative px-2 sm:px-4 cursor-pointer"
                 onMouseEnter={() => handleMouseEnter('user')}
@@ -167,7 +167,10 @@ const Header = () => {
                     to="/profile"
                     className="px-2 sm:px-4 py-2 text-gray-800 hover:text-blue-600 font-medium transition-colors text-sm sm:text-base"
                   >
-                    {userId}님
+                    {user.userId}님
+                    {user.role === 'ADMIN' && (
+                      <span className="ml-1 text-xs text-blue-600">(관리자)</span>
+                    )}
                   </Link>
                   <button 
                     className="p-1 sm:p-2 text-gray-800 hover:text-blue-600 transition-colors"
