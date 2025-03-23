@@ -38,11 +38,6 @@ const Profile = () => {
             </div>
 
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">사용자 권한</h3>
-              <p className="text-gray-600 bg-gray-50 p-4 rounded-lg">{user.role}</p>
-            </div>
-
-            <div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">인증 토큰</h3>
               <div className="relative">
                 <pre className="text-sm text-gray-600 bg-gray-50 p-4 rounded-lg overflow-x-auto whitespace-pre-wrap break-all">

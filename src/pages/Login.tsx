@@ -103,6 +103,14 @@ const Login = () => {
     }));
   };
 
+  const handleForgotPasswordClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setToast({
+      type: 'info',
+      message: '현재 개발중인 기능입니다.'
+    });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -191,9 +199,13 @@ const Login = () => {
               </p>
               <div className="text-sm text-gray-600">
                 비밀번호를 잊으셨나요?{' '}
-                <Link to="/forgot-password" className="text-blue-600 hover:text-blue-700 font-medium">
+                <a
+                  href="#"
+                  onClick={handleForgotPasswordClick}
+                  className="text-blue-600 hover:text-blue-700 font-medium"
+                >
                   비밀번호 찾기
-                </Link>
+                </a>
               </div>
             </div>
           </div>

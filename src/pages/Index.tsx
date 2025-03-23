@@ -11,16 +11,16 @@ const ServiceSlide = ({ title, description, icon, link }: {
   link: string;
 }) => (
   <motion.div
-    className="min-w-full px-4"
+    className="min-w-full px-4 md:px-8"
     initial={{ opacity: 0, x: 100 }}
     animate={{ opacity: 1, x: 0 }}
     exit={{ opacity: 0, x: -100 }}
   >
     <Link to={link}>
-      <div className="bg-white rounded-xl shadow-lg p-8 h-[300px] flex flex-col items-center justify-center space-y-4 hover:shadow-xl transition-shadow">
-        <div className="text-4xl mb-4">{icon}</div>
-        <h3 className="text-2xl font-bold text-gray-800">{title}</h3>
-        <p className="text-gray-600 text-center max-w-md">{description}</p>
+      <div className="bg-white rounded-xl shadow-lg p-4 md:p-8 h-[250px] md:h-[300px] flex flex-col items-center justify-center space-y-4 hover:shadow-xl transition-shadow">
+        <div className="text-3xl md:text-4xl mb-2 md:mb-4">{icon}</div>
+        <h3 className="text-xl md:text-2xl font-bold text-gray-800 text-center">{title}</h3>
+        <p className="text-sm md:text-base text-gray-600 text-center max-w-md">{description}</p>
       </div>
     </Link>
   </motion.div>
@@ -47,6 +47,12 @@ const Index = () => {
       description: "API 엔드포인트를 쉽고 빠르게 테스트해보세요. 다양한 HTTP 메소드와 파라미터를 지원합니다.",
       icon: "🔍",
       link: "/apiTest"
+    },
+    {
+      title: "문의하기",
+      description: "서비스 이용 중 궁금하신 점이나 불편사항이 있으시다면 언제든 문의해주세요.",
+      icon: "✉️",
+      link: "/contact"
     }
   ];
 
@@ -103,7 +109,7 @@ const Index = () => {
 
       {/* Service Slider */}
       <motion.section 
-        className="py-12"
+        className="py-8 md:py-12"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
@@ -119,16 +125,32 @@ const Index = () => {
           
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 bg-white rounded-full shadow-lg hover:bg-gray-100 flex items-center justify-center transition-colors"
+            aria-label="이전 슬라이드"
           >
-            ←
+            <span className="text-gray-600">←</span>
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 bg-white rounded-full shadow-lg hover:bg-gray-100 flex items-center justify-center transition-colors"
+            aria-label="다음 슬라이드"
           >
-            →
+            <span className="text-gray-600">→</span>
           </button>
+        </div>
+
+        {/* Slide Indicators */}
+        <div className="flex justify-center mt-4 space-x-2">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-colors ${
+                currentSlide === index ? 'bg-blue-600' : 'bg-gray-300'
+              }`}
+              aria-label={`슬라이드 ${index + 1}`}
+            />
+          ))}
         </div>
       </motion.section>
 
