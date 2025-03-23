@@ -173,22 +173,65 @@ const About = () => {
               <h2 className="text-2xl font-bold mb-6 text-gray-800">경력 및 경험</h2>
               <div className="space-y-6">
                 <div className="border-l-4 border-blue-500 pl-4">
-                  <h3 className="text-lg font-semibold text-gray-800">추후 작성 예정</h3>
-                  <p className="text-sm text-gray-600 mt-1">1998.03.06 ~</p>
+                  <h3 className="text-lg font-semibold text-gray-800">모비엔</h3>
+                  <p className="text-sm text-gray-600 mt-1">2022.09 ~ 2022.12</p>
+                  <p className="text-sm text-gray-600 mt-1">시스템개발부 · 인턴/수습</p>
+                  <p className="text-sm text-gray-600 mt-1">PHP 백엔드개발</p>
                   <ul className="mt-2 space-y-2 text-gray-600">
-                    <li>• 추후</li>
-                    <li>• 작성</li>
-                    <li>• 예정</li>
+                    <li>• (주)모비엔 웹사이트 구축 프로젝트 참여</li>
+                    <li>• 슬라이드 형식의 웹 사이트 제작</li>
+                    <li>• 사이트 내 QA(문의하기)기능 구현</li>
+                    <li>• 문의 기능 및 관리자 메일 문의 접수 메일 서비스 제공</li>
+                    <li>• 관리자 페이지 내 고객의 문의사항을 확인할 수 있는 서비스 제공</li>
+                    <li>• 동래구청 MMS 발송 시스템 이미지파일 업로드 기능 개선</li>
                   </ul>
+                </div>
+                <div className="border-l-4 border-blue-500 pl-4">
+                  <h3 className="text-lg font-semibold text-gray-800">추후 작성 예정</h3>
                 </div>
                 <div className="border-l-4 border-purple-500 pl-4">
                   <h3 className="text-lg font-semibold text-gray-800">개인 프로젝트</h3>
-                  <p className="text-sm text-gray-600 mt-1">1998.03.06 ~</p>
-                  <ul className="mt-2 space-y-2 text-gray-600">
-                    <li>• 추후</li>
-                    <li>• 작성</li>
-                    <li>• 예정</li>
-                  </ul>
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-md font-semibold text-gray-800">SecuriSuite</h4>
+                      <p className="text-sm text-gray-600 mt-1">2024.01.10 ~ 2024.02.05</p>
+                      <p className="text-sm text-gray-600 mt-1">API 서버 개발 및 인터페이스 제작, 도커 배포</p>
+                      <p className="text-sm text-gray-600 mt-1">브라우저에서 정보 보안 도구를 사용하기 위한 그래픽 인터페이스</p>
+                      <p className="text-sm text-gray-600 mt-1">기존 JSP 기반의 "라메르 사이트"를 현대적인 웹 개발 표준으로 전면 리팩토링</p>
+                      <a href="https://github.com/hoowave/SecuriSuite" className="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block">GitHub 링크 👉</a>
+                    </div>
+
+                    <div>
+                      <h4 className="text-md font-semibold text-gray-800">라메르사이트</h4>
+                      <p className="text-sm text-gray-600 mt-1">2023.07.01 ~ 2023.09.01</p>
+                      <p className="text-sm text-gray-600 mt-1">쉘 스크립트 작성 및 데이터 처리</p>
+                      <p className="text-sm text-gray-600 mt-1">웹에서 사용자의 입력을 받아 리눅스 명령을 수행하여 결과를 반환하는 사이트 도구</p>
+                      <p className="text-sm text-gray-600 mt-1">웹 크롤링, 웹 미러링, 사전파일 생성과 그 파일을 이용해 보안 테스팅 도구 등 기능 제공</p>
+                      <a href="https://github.com/hoowave/Legacy_Project_Lamer" className="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block">GitHub 링크 👉</a>
+                    </div>
+
+                    <div>
+                      <h4 className="text-md font-semibold text-gray-800">프로그래밍의 첫 걸음 - 장뽕뽕 사이트</h4>
+                      <p className="text-sm text-gray-600 mt-1">2023.01.01 ~ 현재</p>
+                      <p className="text-sm text-gray-600 mt-1">화면 설계 및 서비스기획</p>
+                      <p className="text-sm text-gray-600 mt-1">웹에서 마우스 클릭을 통해 광물을 캐고, 얻은 돈으로 무기를 사고 강화할 수 있는 "광물 캐서 무기 강화하기" 콘셉트의 게임 및 커뮤니티 사이트</p>
+                      <a href="http://hoowave.dothome.co.kr" className="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block">사이트 링크 👉</a>
+                    </div>
+
+                    <div>
+                      <h4 className="text-md font-semibold text-gray-800">캐치테이블 예약시스템 API서버 개발</h4>
+                      <p className="text-sm text-gray-600 mt-1">2023.11.01 ~ 2023.12.01</p>
+                      <p className="text-sm text-gray-600 mt-1">DDD(도메인 주도 개발)을 통한 MSA기반 API서버 개발</p>
+                      <a href="https://github.com/hoowave/Catchtable" className="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block">GitHub 링크 👉</a>
+                    </div>
+
+                    <div>
+                      <h4 className="text-md font-semibold text-gray-800">선착순 쿠폰 발급 시스템 실습</h4>
+                      <p className="text-sm text-gray-600 mt-1">2023.12.01 ~ 2024.01.01</p>
+                      <p className="text-sm text-gray-600 mt-1">데이터의 성능과 정합성에 대한 고민 - redis를 사용하여 성능 향상 및 kafka를 사용하여 몰리는 트래픽 처리</p>
+                      <a href="https://github.com/hoowave/coupon-system" className="text-sm text-blue-600 hover:text-blue-800 mt-2 inline-block">GitHub 링크 👉</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
