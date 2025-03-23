@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { CategoryType } from '../types/board';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { CategoryType, BoardDetail } from '../types/board';
 import { boardService } from '../services/boardService';
 import Toast from '../components/Toast';
 import { ToastMessage } from '../types/api';
@@ -9,6 +9,13 @@ import { useAuth } from '../contexts/AuthContext';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import './BoardWrite.css';
+
+// CKEditor 타입 확장
+declare module '@ckeditor/ckeditor5-react' {
+  interface CKEditorProps<T> {
+    data?: string;
+  }
+}
 
 interface BoardWriteForm {
   title: string;
@@ -44,10 +51,13 @@ const editorConfiguration = {
 
 const BoardWrite = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const { category } = useParams<{ category: string }>();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
   const [toast, setToast] = useState<ToastMessage | null>(null);
+  const [isEdit, setIsEdit] = useState(false);
+  const [board, setBoard] = useState<BoardDetail | null>(null);
   const [form, setForm] = useState<BoardWriteForm>({
     title: '',
     content: '',
@@ -62,8 +72,22 @@ const BoardWrite = () => {
         message: '로그인이 필요한 서비스입니다.'
       });
       navigate('/login');
+      return;
     }
-  }, [user, navigate]);
+
+    // 수정 모드인 경우 기존 게시글 데이터 로드
+    const state = location.state as { board: BoardDetail; isEdit: boolean } | null;
+    if (state?.isEdit && state?.board) {
+      setIsEdit(true);
+      setBoard(state.board);
+      setForm({
+        title: state.board.title || '',
+        content: state.board.content || '',
+        author: state.board.author || user.userId,
+        category: state.board.category || (category?.toUpperCase() as CategoryType) || CategoryType.CONTACT
+      });
+    }
+  }, [user, navigate, location.state, category]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -86,66 +110,58 @@ const BoardWrite = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!form.title.trim() || !form.content.trim()) {
-      setToast({
-        type: 'error',
-        message: '제목과 내용을 입력해주세요.'
-      });
-      return;
-    }
-
-    const titleLength = form.title.trim().length;
-    const contentLength = form.content.replace(/<[^>]*>/g, '').trim().length;
-
-    if (titleLength < 3 || titleLength > 100) {
-      setToast({
-        type: 'error',
-        message: '제목은 3자 이상 100자 이하로 입력해주세요.'
-      });
-      return;
-    }
-
-    if (contentLength < 10) {
-      setToast({
-        type: 'error',
-        message: '내용은 10자 이상 입력해주세요.'
-      });
-      return;
-    }
-
     if (!user?.token) {
       setToast({
         type: 'error',
         message: '로그인이 필요한 서비스입니다.'
       });
-      navigate('/login');
       return;
     }
 
-    setIsSubmitting(true);
-
     try {
-      const response = await boardService.createBoard({
-        category: form.category,
-        title: form.title,
-        content: form.content
-      }, user.token);
-      
-      setToast({
-        type: 'success',
-        message: response.message || '게시글 작성이 완료되었습니다.'
-      });
+      if (isEdit && board) {
+        // 수정 모드
+        const response = await boardService.updateBoard(
+          board.id,
+          {
+            title: form.title,
+            content: form.content
+          },
+          user.token
+        );
 
-      setTimeout(() => {
-        navigate(`/${form.category.toLowerCase()}/details/${response.data.id}`);
-      }, 1000);
+        if (response.responseType === 'SUCCESS') {
+          setToast({
+            type: 'success',
+            message: response.message || '게시글이 수정되었습니다.'
+          });
+          setTimeout(() => {
+            navigate(`/${form.category.toLowerCase()}/details/${board.id}`);
+          }, 1000);
+        } else {
+          throw new Error(response.message || '게시글 수정에 실패했습니다.');
+        }
+      } else {
+        // 새 글 작성 모드
+        const response = await boardService.createBoard(form, user.token);
+        if (response.responseType === 'SUCCESS') {
+          setToast({
+            type: 'success',
+            message: response.message || '게시글이 작성되었습니다.'
+          });
+          setTimeout(() => {
+            navigate(`/${form.category.toLowerCase()}/details/${response.data.id}`);
+          }, 1000);
+        } else {
+          throw new Error(response.message || '게시글 작성에 실패했습니다.');
+        }
+      }
     } catch (error) {
+      console.error('Error submitting board:', error);
       setToast({
         type: 'error',
-        message: '게시글 작성에 실패했습니다.'
+        message: error instanceof Error ? error.message : '게시글 처리 중 오류가 발생했습니다.'
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -160,12 +176,14 @@ const BoardWrite = () => {
         <div className="px-6 py-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              {form.category === CategoryType.NOTICE ? '공지사항 작성' : '문의하기'}
+              {isEdit ? '게시글 수정' : (form.category === CategoryType.NOTICE ? '공지사항 작성' : '문의하기')}
             </h1>
             <p className="text-gray-600">
-              {form.category === CategoryType.NOTICE 
-                ? '공지사항을 작성해주세요.' 
-                : '문의하실 내용을 상세히 작성해주세요.'}
+              {isEdit 
+                ? '게시글을 수정해주세요.' 
+                : (form.category === CategoryType.NOTICE 
+                  ? '공지사항을 작성해주세요.' 
+                  : '문의하실 내용을 상세히 작성해주세요.')}
             </p>
           </div>
 
@@ -218,6 +236,9 @@ const BoardWrite = () => {
                 <CKEditor<ClassicEditor>
                   editor={ClassicEditor}
                   config={editorConfiguration}
+                  onReady={(editor) => {
+                    editor.setData(form.content);
+                  }}
                   onChange={handleEditorChange}
                 />
               </div>
@@ -236,7 +257,7 @@ const BoardWrite = () => {
                 disabled={isSubmitting}
                 className="px-6 py-3 text-sm font-medium text-white bg-blue-600 border-2 border-transparent rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
               >
-                {isSubmitting ? '작성 중...' : '작성하기'}
+                {isSubmitting ? (isEdit ? '수정 중...' : '작성 중...') : (isEdit ? '수정하기' : '작성하기')}
               </button>
             </div>
           </form>

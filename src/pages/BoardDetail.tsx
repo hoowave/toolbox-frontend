@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { BoardDetail as BoardDetailType, getBoardStatusInfo, BoardStatus } from '../types/board';
+import { BoardDetail as BoardDetailType, getBoardStatusInfo } from '../types/board';
 import { format } from 'date-fns';
 import { boardService } from '../services/boardService';
 import { useAuth } from '../contexts/AuthContext';
+import Toast from '../components/Toast';
+import { ToastMessage } from '../types/api';
 import './BoardDetail.css';
 
 const BoardDetail = () => {
@@ -16,6 +18,7 @@ const BoardDetail = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [toast, setToast] = useState<ToastMessage | null>(null);
 
   // URL에서 현재 카테고리 추출
   const category = location.pathname.split('/')[1];
@@ -38,34 +41,36 @@ const BoardDetail = () => {
   }, [id]);
 
   const handleEdit = () => {
-    navigate(`/${category}/edit/${id}`);
-    setIsMenuOpen(false);
-  };
-
-  const handleToggleVisibility = async () => {
-    if (!board) return;
-    
-    try {
-      await boardService.updateBoard(board.id, {
-        status: board.status === BoardStatus.VISIBLE ? BoardStatus.HIDDEN : BoardStatus.VISIBLE
-      });
-      // 상태 업데이트 후 게시글 다시 불러오기
-      const response = await boardService.getBoardDetail(board.id);
-      setBoard(response.data);
-    } catch (err) {
-      setError('게시글 상태 변경에 실패했습니다.');
-    }
+    navigate(`/${category}/write`, { 
+      state: { 
+        board,
+        isEdit: true 
+      }
+    });
     setIsMenuOpen(false);
   };
 
   const handleDelete = async () => {
-    if (!board || !window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) return;
+    if (!board || !user?.token || !window.confirm('정말로 이 게시글을 삭제하시겠습니까?')) return;
     
     try {
-      await boardService.deleteBoard(board.id);
-      navigate(`/${category}/page/1`);
+      const response = await boardService.deleteBoard(board.id, user.token);
+      if (response.responseType === 'SUCCESS') {
+        setToast({
+          type: 'success',
+          message: response.message || '게시글이 삭제되었습니다.'
+        });
+        setTimeout(() => {
+          navigate(`/${category}`);
+        }, 1000);
+      } else {
+        throw new Error(response.message || '게시글 삭제에 실패했습니다.');
+      }
     } catch (err) {
-      setError('게시글 삭제에 실패했습니다.');
+      setToast({
+        type: 'error',
+        message: err instanceof Error ? err.message : '게시글 삭제에 실패했습니다.'
+      });
     }
     setIsMenuOpen(false);
   };
@@ -112,13 +117,27 @@ const BoardDetail = () => {
 
   if (statusInfo) {
     return (
-      <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow-lg rounded-lg p-8 text-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8"
+      >
+        <div 
+          className="bg-white shadow-lg rounded-lg p-8 text-center cursor-pointer"
+          onClick={() => {
+            setToast({
+              type: 'info',
+              message: '삭제된 게시글입니다.'
+            });
+          }}
+        >
           <span className={`px-3 py-1 rounded-full text-sm font-medium ${statusInfo.className}`}>
-            {statusInfo.message}
+            삭제됨
           </span>
         </div>
-      </div>
+        <Toast toast={toast} onClose={() => setToast(null)} />
+      </motion.div>
     );
   }
 
@@ -185,12 +204,6 @@ const BoardDetail = () => {
                     수정하기
                   </button>
                   <button
-                    onClick={handleToggleVisibility}
-                    className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
-                  >
-                    {board.status === BoardStatus.VISIBLE ? '숨기기' : '보이기'}
-                  </button>
-                  <button
                     onClick={handleDelete}
                     className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100 text-left border-t border-gray-100"
                   >
@@ -202,6 +215,7 @@ const BoardDetail = () => {
           </div>
         </div>
       )}
+      <Toast toast={toast} onClose={() => setToast(null)} />
     </motion.div>
   );
 };

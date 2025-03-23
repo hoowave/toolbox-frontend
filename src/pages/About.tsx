@@ -57,7 +57,7 @@ const About = () => {
               <div>
                 <h3 className="font-semibold mb-1 bg-gray-50">병역사항</h3>
                 <ul className="space-y-2 pl-4">
-                  <li>• 군필 / 병장 만기전역</li>
+                  <li>• 군필 / 해병 병장 만기전역</li>
                 </ul>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '../config';
-import { BoardDetail, BoardItem, CategoryType } from '../types/board';
+import { BoardDetail, BoardItem, CategoryType, BoardStatus } from '../types/board';
 import { ApiResponse } from '../types/api';
 
 interface GetBoardsParams {
@@ -72,26 +72,29 @@ export const boardService = {
     return response.json();
   },
 
-  async updateBoard(id: number, data: Partial<BoardDetail>, token: string): Promise<ApiResponse<BoardDetail>> {
-    if (!token) {
-      throw new Error('No token found');
+  async updateBoard(id: number, data: { title?: string; content?: string; status?: BoardStatus }, token: string): Promise<ApiResponse<BoardDetail>> {
+    try {
+      const response = await fetch(`${API_BASE_URL}/boards`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          id,
+          ...data
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update board');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error updating board:', error);
+      throw error;
     }
-
-    const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      credentials: 'include',
-      body: JSON.stringify(data)
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to update board');
-    }
-
-    return response.json();
   },
 
   async deleteBoard(id: number, token: string): Promise<ApiResponse<void>> {
@@ -99,12 +102,15 @@ export const boardService = {
       throw new Error('No token found');
     }
 
-    const response = await fetch(`${API_BASE_URL}/boards/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/boards`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      body: JSON.stringify({
+        id,
+      }),
       credentials: 'include'
     });
 

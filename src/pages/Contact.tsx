@@ -144,7 +144,16 @@ const Contact = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  onClick={() => handleRowClick(contact)}
+                  onClick={() => {
+                    if (statusInfo) {
+                      setToast({
+                        type: 'info',
+                        message: '삭제된 게시글입니다.'
+                      });
+                      return;
+                    }
+                    handleRowClick(contact);
+                  }}
                   className="hover:bg-gray-50 cursor-pointer transition-colors"
                 >
                   <td className="px-4 py-3 whitespace-nowrap text-center">
@@ -157,11 +166,10 @@ const Contact = () => {
                     <div className="flex items-center justify-center">
                       <div className="text-sm font-medium text-gray-900 truncate max-w-xs md:max-w-sm lg:max-w-md text-center">
                         {statusInfo ? (
-                          <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${statusInfo.className} mr-2`}>
-                            {statusInfo.text}
+                          <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${statusInfo.className}`}>
+                            삭제됨
                           </span>
-                        ) : null}
-                        {contact.title}
+                        ) : contact.title}
                       </div>
                     </div>
                   </td>
