@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Toast from '../components/Toast';
 import { ToastMessage } from '../types/api';
+import { FaStar } from 'react-icons/fa';
+import Modal from 'react-modal';
+import { useAuth } from '../contexts/AuthContext';
+import { reviewService, Review } from '../services/reviewService';
 
 const ServiceSlide = ({ title, description, icon, link }: {
   title: string;
@@ -27,12 +31,14 @@ const ServiceSlide = ({ title, description, icon, link }: {
 );
 
 const Index = () => {
+  const { user } = useAuth();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [review, setReview] = useState('');
-  const [reviews] = useState([
-    { id: 1, text: "URL 단축 서비스가 정말 편리해요!", date: "2024-03-15" },
-    { id: 2, text: "API 테스트 도구가 직관적이고 사용하기 쉬워요.", date: "2024-03-14" }
-  ]);
+  const [star, setStar] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [toast, setToast] = useState<ToastMessage | null>(null);
   
   const slides = [
@@ -56,6 +62,20 @@ const Index = () => {
     }
   ];
 
+  useEffect(() => {
+    fetchReviews(currentPage);
+  }, [currentPage]);
+
+  const fetchReviews = async (page: number) => {
+    try {
+      const response = await reviewService.getReviews(page);
+      setReviews(response.data.content);
+      setTotalPages(response.data.totalPageNumber);
+    } catch (error) {
+      console.error('리뷰 목록을 가져오는 중 오류가 발생했습니다:', error);
+    }
+  };
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
@@ -64,12 +84,44 @@ const Index = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  const handleReviewSubmit = (e: React.FormEvent) => {
+  const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setToast({
-      type: 'error',
-      message: '현재 개발 중인 기능입니다.'
-    });
+    
+    if (star === 0) {
+      setIsModalOpen(true);
+      return;
+    }
+
+    try {
+      await reviewService.createReview({
+        author: user?.userId || "",
+        content: review,
+        star: star
+      });
+      
+      setReview('');
+      setStar(0);
+      setToast({
+        type: 'success',
+        message: '리뷰가 등록되었습니다.'
+      });
+      fetchReviews(1); // 첫 페이지로 돌아가서 새로고침
+    } catch (error) {
+      console.error('리뷰 작성 중 오류가 발생했습니다:', error);
+      setToast({
+        type: 'error',
+        message: '리뷰 등록에 실패했습니다.'
+      });
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    const year = dateString.substring(0, 4);
+    const month = dateString.substring(4, 6);
+    const day = dateString.substring(6, 8);
+    const hour = dateString.substring(8, 10);
+    const minute = dateString.substring(10, 12);
+    return `${year}-${month}-${day} ${hour}:${minute}`;
   };
 
   return (
@@ -206,22 +258,45 @@ const Index = () => {
           <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">사용자 후기</h2>
           
           {/* Review Form */}
-          <form onSubmit={handleReviewSubmit} className="mb-8">
-            <div className="flex gap-4">
-              <input
-                type="text"
-                value={review}
-                onChange={(e) => setReview(e.target.value)}
-                placeholder="서비스 사용 후기를 남겨주세요"
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                maxLength={100}
-              />
-              <button
-                type="submit"
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                등록
-              </button>
+          <form onSubmit={handleReviewSubmit} className="mb-8 space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                별점
+              </label>
+              <div className="flex space-x-2">
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <FaStar
+                    key={value}
+                    className={`cursor-pointer text-2xl ${
+                      value <= star ? 'text-yellow-400' : 'text-gray-300'
+                    }`}
+                    onClick={() => setStar(value)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  value={review}
+                  onChange={(e) => setReview(e.target.value)}
+                  placeholder="서비스 사용 후기를 남겨주세요"
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  maxLength={20}
+                  minLength={3}
+                  required
+                />
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  등록
+                </button>
+              </div>
+              <p className="text-sm text-gray-500">
+                최소 3글자 이상, 최대 100글자까지 입력 가능합니다.
+              </p>
             </div>
           </form>
 
@@ -235,13 +310,114 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <p className="text-gray-700">{review.text}</p>
-                <p className="text-sm text-gray-500 mt-2">익명 - {review.date}</p>
+                <div className="flex items-center mb-2">
+                  <div className="flex space-x-1">
+                    {[1, 2, 3, 4, 5].map((value) => (
+                      <FaStar
+                        key={value}
+                        className={`${
+                          value <= review.star ? 'text-yellow-400' : 'text-gray-300'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-gray-700">{review.content}</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  {review.author === "" ? "비회원" : review.author} - {formatDate(review.createdAt)}
+                </p>
               </motion.div>
             ))}
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-6 space-x-2">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                disabled={currentPage === 1}
+                className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+              >
+                이전
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={`page-${page}`}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-3 py-1 text-sm font-medium rounded-md ${
+                    currentPage === page
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                disabled={currentPage === totalPages}
+                className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+              >
+                다음
+              </button>
+            </div>
+          )}
         </div>
       </motion.section>
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={() => setIsModalOpen(false)}
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/95 p-8 rounded-2xl shadow-2xl max-w-md w-full border border-gray-200"
+        overlayClassName="fixed inset-0 bg-gray-100/50 backdrop-blur-sm transition-opacity duration-300"
+        closeTimeoutMS={300}
+      >
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ type: "spring", damping: 20, stiffness: 300 }}
+        >
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">별점을 주시면 더 좋습니다!</h2>
+          <p className="mb-6 text-gray-600">
+            별점을 주시면 다른 사용자들에게 더 도움이 될 수 있습니다.
+            지금 별점을 선택해주세요.
+          </p>
+          
+          <div className="flex justify-center mb-6">
+            <div className="flex space-x-2">
+              {[1, 2, 3, 4, 5].map((value) => (
+                <FaStar
+                  key={value}
+                  className={`cursor-pointer text-3xl ${
+                    value <= star ? 'text-yellow-400' : 'text-gray-300'
+                  }`}
+                  onClick={() => setStar(value)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-end space-x-3">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="px-6 py-2 text-gray-600 hover:text-gray-800 font-medium"
+            >
+              취소
+            </button>
+            <button
+              onClick={() => {
+                setIsModalOpen(false);
+                handleReviewSubmit(new Event('submit') as any);
+              }}
+              disabled={star === 0}
+              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              등록
+            </button>
+          </div>
+        </motion.div>
+      </Modal>
 
       <Toast toast={toast} onClose={() => setToast(null)} />
     </div>
