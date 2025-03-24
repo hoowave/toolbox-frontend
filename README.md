@@ -1,54 +1,56 @@
-# React + TypeScript + Vite
+# ToolBox
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ToolBox는 누구나 필요한 서비스를, 누구나 쉽게 사용할 수 있도록 제공하는 웹 서비스입니다.
 
-Currently, two official plugins are available:
+## 주요 기능
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. URL 단축 서비스
+- 긴 URL을 짧고 기억하기 쉬운 링크로 변환
+- 안전하고 신뢰할 수 있는 URL 단축 서비스 제공
+- 광고, 회원가입 없이 즉시 사용 가능
 
-## Expanding the ESLint configuration
+### 2. API 요청 테스트
+- API 엔드포인트를 쉽고 빠르게 테스트
+- 다양한 HTTP 메소드와 파라미터 지원
+- 실시간 요청/응답 확인
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 3. 문의하기
+- 서비스 이용 중 궁금하신 점이나 불편사항 문의
+- 빠른 답변과 피드백 제공
+- 사용자 의견 수렴 및 개선
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 특징
+
+- **간편한 사용**: 광고, 회원가입 없이 바로바로 사용 가능
+- **개인정보 보호**: 어떠한 개인정보도 수집하지 않음
+- **익명 이용**: 모든 기능을 익명으로 자유롭게 이용 가능
+- **사용자 후기**: 서비스 사용 후기 및 별점 평가 가능 (비회원 포함)
+
+## 기술 스택
+
+- Frontend: React, TypeScript, Tailwind CSS
+- Backend: Spring Boot
+- Database: MySQL
+- 기타: Framer Motion, CKEditor
+
+## 설치 및 실행
+
+```bash
+# 프로젝트 클론
+git clone https://github.com/yourusername/toolbox-frontend.git
+
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 주의사항
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 현재 베타 버전으로 운영중입니다. 기능이 정상적으로 작동하지 않을 수 있습니다.
+- 본 서비스를 사용함에 있어 모든 책임은 개인에게 있습니다.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 라이선스
+
+이 프로젝트는 MIT 라이선스를 따릅니다.
