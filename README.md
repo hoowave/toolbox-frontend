@@ -1,6 +1,14 @@
-# ToolBox
+# ToolBox Frontend
 
-ToolBox는 누구나 필요한 서비스를, 누구나 쉽게 사용할 수 있도록 제공하는 웹 서비스입니다.
+ToolBox 프로젝트의 프론트엔드 서버입니다.
+
+## 서버 정보
+
+- 개발 서버 (베타): https://dev.hoowave.org
+- 실제 서버: https://hoowave.org (예정)
+- API 서버:
+  - 개발 환경: https://api-dev.hoowave.org
+  - 프로덕션 환경: https://api.hoowave.org
 
 ## 주요 기능
 
@@ -33,11 +41,19 @@ ToolBox는 누구나 필요한 서비스를, 누구나 쉽게 사용할 수 있�
 - Database: MySQL
 - 기타: Framer Motion, CKEditor
 
-## 설치 및 실행
+## 개발 환경 설정
+
+### 필수 요구사항
+
+- Node.js 18 이상
+- npm 9 이상
+
+### 설치 및 실행
 
 ```bash
 # 프로젝트 클론
-git clone https://github.com/yourusername/toolbox-frontend.git
+git clone https://github.com/hoowave/toolbox-frontend.git
+cd toolbox-frontend
 
 # 의존성 설치
 npm install
@@ -45,6 +61,22 @@ npm install
 # 개발 서버 실행
 npm run dev
 ```
+
+## 프로젝트 구조
+
+```
+src/
+├── components/     # 재사용 가능한 컴포넌트
+├── contexts/      # React Context 관련 파일
+├── pages/         # 페이지 컴포넌트
+├── services/      # API 서비스
+├── types/         # TypeScript 타입 정의
+└── utils/         # 유틸리티 함수
+```
+
+## 연관 프로젝트
+
+- 백엔드: [toolbox-backend](https://github.com/hoowave/toolbox-backend)
 
 ## 주의사항
 
