@@ -40,6 +40,7 @@ const Index = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [toast, setToast] = useState<ToastMessage | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const slides = [
     {
@@ -87,11 +88,14 @@ const Index = () => {
   const handleReviewSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (isSubmitting) return;
+    
     if (star === 0) {
       setIsModalOpen(true);
       return;
     }
 
+    setIsSubmitting(true);
     try {
       await reviewService.createReview({
         author: user?.userId || "",
@@ -112,6 +116,8 @@ const Index = () => {
         type: 'error',
         message: '리뷰 등록에 실패했습니다.'
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -289,13 +295,17 @@ const Index = () => {
                 />
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  disabled={isSubmitting}
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  등록
+                  {isSubmitting ? '등록 중...' : '등록'}
                 </button>
               </div>
               <p className="text-sm text-gray-500">
-                최소 3글자 이상, 최대 100글자까지 입력 가능합니다.
+                최소 3글자 이상, 최대 20글자까지 입력 가능합니다.
+              </p>
+              <p className="text-sm text-gray-500">
+                비회원도 작성 가능합니다.
               </p>
             </div>
           </form>

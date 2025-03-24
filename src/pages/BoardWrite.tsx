@@ -54,7 +54,7 @@ const BoardWrite = () => {
   const location = useLocation();
   const { user } = useAuth();
   const { category } = useParams<{ category: string }>();
-  const [isSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [toast, setToast] = useState<ToastMessage | null>(null);
   const [isEdit, setIsEdit] = useState(false);
   const [board, setBoard] = useState<BoardDetail | null>(null);
@@ -110,6 +110,8 @@ const BoardWrite = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (isSubmitting || toast) return;
+    
     if (!user?.token) {
       setToast({
         type: 'error',
@@ -118,6 +120,7 @@ const BoardWrite = () => {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       if (isEdit && board) {
         // 수정 모드
@@ -162,6 +165,8 @@ const BoardWrite = () => {
         type: 'error',
         message: error instanceof Error ? error.message : '게시글 처리 중 오류가 발생했습니다.'
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
