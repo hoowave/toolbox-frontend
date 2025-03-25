@@ -2,17 +2,17 @@ import { motion } from 'framer-motion';
 
 const Profile = () => {
   return (
-    <div className="w-full flex justify-between items-start">
-      {/* Empty space for left side */}
-      <div className="w-1/4" />
+    <div className="w-full flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-4">
+      {/* Empty space for left side - hidden on mobile */}
+      <div className="hidden md:block md:w-1/4" />
 
       {/* Profile Image and Info */}
       <motion.div 
-        className="w-1/4 text-center"
+        className="w-full md:w-1/4 text-center"
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <div className="w-48 h-48 rounded-full mx-auto mb-4 bg-gray-50/80 p-2 shadow-[4px_4px_10px_0_rgba(0,0,0,0.1),-4px_-4px_10px_0_rgba(255,255,255,0.9)]">
+        <div className="w-32 h-32 md:w-48 md:h-48 rounded-full mx-auto mb-4 bg-gray-50/80 p-2 shadow-[4px_4px_10px_0_rgba(0,0,0,0.1),-4px_-4px_10px_0_rgba(255,255,255,0.9)]">
           <div className="w-full h-full rounded-full overflow-hidden shadow-[inset_4px_4px_8px_rgba(0,0,0,0.1),inset_-4px_-4px_8px_rgba(255,255,255,0.9)]">
             <img 
               src="/my_img.png" 
@@ -21,13 +21,13 @@ const Profile = () => {
             />
           </div>
         </div>
-        <h1 className="text-3xl font-bold text-gray-800 mb-1">장상훈</h1>
-        <p className="text-lg text-gray-600">Backend Developer / Engineer</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">장상훈</h1>
+        <p className="text-base md:text-lg text-gray-600">Backend Developer / Engineer</p>
       </motion.div>
 
       {/* Core Values */}
       <motion.div 
-        className="w-1/3"
+        className="w-full md:w-1/3"
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}

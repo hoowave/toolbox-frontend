@@ -161,18 +161,18 @@ const ProjectTimeline = ({
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-12">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 md:mb-12">
+        <div className="flex items-center gap-3 mb-4 md:mb-0">
           <div className="w-2 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
-          <h2 className="text-2xl font-bold text-gray-800">프로젝트 타임라인</h2>
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800">프로젝트 타임라인</h2>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+          <div className="flex flex-wrap md:flex-nowrap gap-2 md:gap-4">
             <button 
               onClick={() => handleFilterChange('main')}
-              className={`flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] transition-all duration-300 ${filters.main ? 'shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] text-blue-600' : 'text-gray-400'}`}
+              className={`flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-white rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] transition-all duration-300 ${filters.main ? 'shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] text-blue-600' : 'text-gray-400'}`}
             >
-              <div className="relative w-4 h-4 border-2 rounded border-current transition-colors">
+              <div className="relative w-3 md:w-4 h-3 md:h-4 border-2 rounded border-current transition-colors">
                 {filters.main && (
                   <motion.div
                     initial={{ scale: 0 }}
@@ -181,13 +181,13 @@ const ProjectTimeline = ({
                   />
                 )}
               </div>
-              <span>메인</span>
+              <span className="text-sm md:text-base">메인</span>
             </button>
             <button 
               onClick={() => handleFilterChange('toy')}
-              className={`flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] transition-all duration-300 ${filters.toy ? 'shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] text-purple-600' : 'text-gray-400'}`}
+              className={`flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-white rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] transition-all duration-300 ${filters.toy ? 'shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] text-purple-600' : 'text-gray-400'}`}
             >
-              <div className="relative w-4 h-4 border-2 rounded border-current transition-colors">
+              <div className="relative w-3 md:w-4 h-3 md:h-4 border-2 rounded border-current transition-colors">
                 {filters.toy && (
                   <motion.div
                     initial={{ scale: 0 }}
@@ -196,13 +196,13 @@ const ProjectTimeline = ({
                   />
                 )}
               </div>
-              <span>토이</span>
+              <span className="text-sm md:text-base">토이</span>
             </button>
             <button 
               onClick={() => handleFilterChange('legacy')}
-              className={`flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] transition-all duration-300 ${filters.legacy ? 'shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] text-gray-600' : 'text-gray-400'}`}
+              className={`flex items-center gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-white rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] transition-all duration-300 ${filters.legacy ? 'shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] text-gray-600' : 'text-gray-400'}`}
             >
-              <div className="relative w-4 h-4 border-2 rounded border-current transition-colors">
+              <div className="relative w-3 md:w-4 h-3 md:h-4 border-2 rounded border-current transition-colors">
                 {filters.legacy && (
                   <motion.div
                     initial={{ scale: 0 }}
@@ -211,12 +211,12 @@ const ProjectTimeline = ({
                   />
                 )}
               </div>
-              <span>레거시</span>
+              <span className="text-sm md:text-base">레거시</span>
             </button>
           </div>
-          <div className="relative">
+          <div className="relative w-full md:w-auto">
             <select 
-              className="appearance-none px-6 py-2.5 bg-white rounded-xl text-gray-700 shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer pr-10 transition-all duration-300"
+              className="w-full md:w-auto appearance-none px-4 md:px-6 py-2 md:py-2.5 bg-white rounded-xl text-sm md:text-base text-gray-700 shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer pr-10 transition-all duration-300"
               value={viewMode}
               onChange={(e) => setViewMode(e.target.value as 'project' | 'date')}
             >
@@ -232,7 +232,7 @@ const ProjectTimeline = ({
         </div>
       </div>
 
-      <div className="relative space-y-16">
+      <div className="relative space-y-12 md:space-y-16">
         {viewMode === 'project' ? (
           <>
             {/* Main Projects Timeline */}
@@ -245,12 +245,12 @@ const ProjectTimeline = ({
                 transition={{ duration: 0.3 }}
               >
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400"></div>
-                <div className="relative grid grid-cols-2 gap-8">
+                <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   {mainProjects.map((project) => (
                     <TimelineDot key={project.id} project={{ ...project, color: 'blue' }} />
                   ))}
                 </div>
-                <div className="mt-8 grid grid-cols-2 gap-8">
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   {mainProjects.map((project, index) => (
                     <ProjectCard key={project.id} project={{ ...project, color: 'blue' }} index={index} />
                   ))}
@@ -268,12 +268,12 @@ const ProjectTimeline = ({
                 transition={{ duration: 0.3 }}
               >
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-purple-600 via-purple-500 to-purple-400"></div>
-                <div className="relative grid grid-cols-4 gap-4">
+                <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   {toyProjects.map((project) => (
                     <TimelineDot key={project.id} project={{ ...project, color: 'purple' }} />
                   ))}
                 </div>
-                <div className="mt-8 grid grid-cols-4 gap-4">
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   {toyProjects.map((project, index) => (
                     <ProjectCard key={project.id} project={{ ...project, color: 'purple' }} index={index} />
                   ))}
@@ -291,12 +291,12 @@ const ProjectTimeline = ({
                 transition={{ duration: 0.3 }}
               >
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-400"></div>
-                <div className="relative grid grid-cols-2 gap-8">
+                <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   {legacyProjects.map((project) => (
                     <TimelineDot key={project.id} project={{ ...project, color: 'gray' }} />
                   ))}
                 </div>
-                <div className="mt-8 grid grid-cols-2 gap-8">
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   {legacyProjects.map((project, index) => (
                     <ProjectCard key={project.id} project={{ ...project, color: 'gray' }} index={index} />
                   ))}
@@ -306,50 +306,52 @@ const ProjectTimeline = ({
           </>
         ) : (
           <>
-            {/* First Row Timeline */}
+            {/* Date view */}
             <div className="relative">
               <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-400"></div>
-              <div className="relative grid grid-cols-3 gap-8">
+              <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                 {allProjects.slice(0, 3).map((project) => (
                   <TimelineDot key={project.id} project={project} />
                 ))}
               </div>
-              <div className="mt-8 grid grid-cols-3 gap-8">
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                 {allProjects.slice(0, 3).map((project, index) => (
                   <ProjectCard key={project.id} project={project} index={index} />
                 ))}
               </div>
             </div>
 
-            {/* Second Row Timeline */}
-            <div className="relative">
-              <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-400"></div>
-              <div className="relative grid grid-cols-3 gap-8">
-                {allProjects.slice(3, 6).map((project) => (
-                  <TimelineDot key={project.id} project={project} />
-                ))}
+            {allProjects.length > 3 && (
+              <div className="relative">
+                <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-400"></div>
+                <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                  {allProjects.slice(3, 6).map((project) => (
+                    <TimelineDot key={project.id} project={project} />
+                  ))}
+                </div>
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                  {allProjects.slice(3, 6).map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+                  ))}
+                </div>
               </div>
-              <div className="mt-8 grid grid-cols-3 gap-8">
-                {allProjects.slice(3, 6).map((project, index) => (
-                  <ProjectCard key={project.id} project={project} index={index} />
-                ))}
-              </div>
-            </div>
+            )}
 
-            {/* Third Row Timeline */}
-            <div className="relative">
-              <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-400"></div>
-              <div className="relative grid grid-cols-3 gap-8">
-                {allProjects.slice(6).map((project) => (
-                  <TimelineDot key={project.id} project={project} />
-                ))}
+            {allProjects.length > 6 && (
+              <div className="relative">
+                <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-400"></div>
+                <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                  {allProjects.slice(6).map((project) => (
+                    <TimelineDot key={project.id} project={project} />
+                  ))}
+                </div>
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                  {allProjects.slice(6).map((project, index) => (
+                    <ProjectCard key={project.id} project={project} index={index} />
+                  ))}
+                </div>
               </div>
-              <div className="mt-8 grid grid-cols-3 gap-8">
-                {allProjects.slice(6).map((project, index) => (
-                  <ProjectCard key={project.id} project={project} index={index} />
-                ))}
-              </div>
-            </div>
+            )}
           </>
         )}
       </div>
