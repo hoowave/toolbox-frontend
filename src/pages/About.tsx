@@ -112,7 +112,7 @@ const About = () => {
       date: "2023.11.01 ~ 2023.12.01",
       description: "DDD(도메인 주도 개발)을 통한 MSA기반 API서버 개발",
       links: [
-        { text: "GitHub 링크 👉", url: "https://github.com/hoowave/catchtable-reservation" }
+        { text: "GitHub 링크 👉", url: "https://github.com/hoowave/Catchtable" }
       ],
       color: "purple"
     }
