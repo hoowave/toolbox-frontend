@@ -223,33 +223,33 @@ const Index = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
       >
-        <div className="bg-white/90 rounded-3xl p-12 shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
+        <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-3xl p-12 shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] hover:shadow-[inset_8px_8px_16px_rgba(0,0,0,0.25),inset_-8px_-8px_16px_rgba(255,255,255,0.1)] transform hover:scale-[0.99] transition-all duration-300">
           <motion.div 
-            className="max-w-3xl mx-auto space-y-8"
+            className="max-w-3xl mx-auto space-y-8 relative"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
           >
             <div className="space-y-6">
               <motion.h2 
-                className="text-3xl font-bold text-gray-800"
+                className="text-3xl font-bold drop-shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 간편한 사용
               </motion.h2>
               <div className="space-y-4">
-                <p className="text-lg leading-relaxed text-gray-600">
+                <p className="text-lg leading-relaxed text-white/90 drop-shadow">
                   긴 URL 및 API 통신 테스트 시 필요한 서비스를 광고, 회원가입 없이 바로바로 사용해보세요.
                 </p>
-                <p className="text-lg leading-relaxed text-gray-600">
+                <p className="text-lg leading-relaxed text-white/90 drop-shadow">
                   본 서비스는 어떠한 개인정보도 수집하지 않으며, 모든 기능을 익명으로 자유롭게 이용하실 수 있습니다.
                 </p>
               </div>
             </div>
             
-            <div className="pt-6 border-t border-gray-200">
-              <p className="text-sm text-gray-500">
+            <div className="pt-6 border-t border-white/20">
+              <p className="text-sm text-white/70">
                 본 서비스를 사용함에 있어 모든 책임은 개인에게 있습니다.
               </p>
             </div>

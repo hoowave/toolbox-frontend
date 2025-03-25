@@ -24,9 +24,9 @@ const ProjectTimeline = ({
   });
 
   const allProjects = [
-    ...(filters.main ? mainProjects : []),
-    ...(filters.toy ? toyProjects : []),
-    ...(filters.legacy ? legacyProjects : [])
+    ...(filters.main ? mainProjects.map(project => ({ ...project, color: 'blue' })) : []),
+    ...(filters.toy ? toyProjects.map(project => ({ ...project, color: 'purple' })) : []),
+    ...(filters.legacy ? legacyProjects.map(project => ({ ...project, color: 'gray' })) : [])
   ].sort((a, b) => {
     const dateA = new Date(a.date.split('~')[0].trim()).getTime();
     const dateB = new Date(b.date.split('~')[0].trim()).getTime();
@@ -40,6 +40,45 @@ const ProjectTimeline = ({
     }));
   };
 
+  const getColorClass = (type: string, variant: string) => {
+    switch (type) {
+      case 'blue':
+        return `text-blue-${variant}`;
+      case 'purple':
+        return `text-purple-${variant}`;
+      case 'gray':
+        return `text-gray-${variant}`;
+      default:
+        return `text-gray-${variant}`;
+    }
+  };
+
+  const getShadowClass = (color: string) => {
+    switch (color) {
+      case 'blue':
+        return 'shadow-[8px_8px_16px_rgba(37,99,235,0.2),-8px_-8px_16px_#ffffff] hover:shadow-[inset_8px_8px_16px_rgba(37,99,235,0.15),inset_-8px_-8px_16px_#ffffff]';
+      case 'purple':
+        return 'shadow-[8px_8px_16px_rgba(147,51,234,0.2),-8px_-8px_16px_#ffffff] hover:shadow-[inset_8px_8px_16px_rgba(147,51,234,0.15),inset_-8px_-8px_16px_#ffffff]';
+      case 'gray':
+        return 'shadow-[8px_8px_16px_rgba(75,85,99,0.2),-8px_-8px_16px_#ffffff] hover:shadow-[inset_8px_8px_16px_rgba(75,85,99,0.15),inset_-8px_-8px_16px_#ffffff]';
+      default:
+        return 'shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff]';
+    }
+  };
+
+  const getBorderClass = (color: string) => {
+    switch (color) {
+      case 'blue':
+        return 'border border-blue-100';
+      case 'purple':
+        return 'border border-purple-100';
+      case 'gray':
+        return 'border border-gray-100';
+      default:
+        return 'border border-gray-100';
+    }
+  };
+
   const ProjectCard = ({ project, index }: { project: Project; index: number }) => (
     <motion.div 
       key={project.id} 
@@ -50,11 +89,11 @@ const ProjectTimeline = ({
     >
       <div className="text-center text-xs font-medium text-gray-600 mb-2">{project.date}</div>
       <motion.div 
-        className={`bg-white p-6 rounded-3xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] group cursor-pointer transition-all duration-300`}
+        className={`bg-white p-6 rounded-3xl ${getBorderClass(project.color)} ${getShadowClass(project.color)} group cursor-pointer transition-all duration-300`}
         whileHover={{ y: -2 }}
         transition={{ type: "spring", stiffness: 400, damping: 20 }}
       >
-        <h3 className="text-lg font-bold text-gray-800 mb-3 leading-snug">{project.title}</h3>
+        <h3 className={`text-lg font-bold ${getColorClass(project.color, '800')} mb-3 leading-snug`}>{project.title}</h3>
         <p className="text-sm text-gray-600 mb-4 leading-relaxed tracking-wide">
           {project.description}
         </p>
@@ -63,13 +102,13 @@ const ProjectTimeline = ({
             {Array.isArray(project.subDescription) ? (
               project.subDescription.map((desc, i) => (
                 <div key={i} className="flex items-start space-x-2">
-                  <span className={`text-${project.color}-500 mt-1`}>•</span>
+                  <span className={getColorClass(project.color, '500') + " mt-1"}>•</span>
                   <p className="leading-relaxed tracking-wide">{desc}</p>
                 </div>
               ))
             ) : (
               <div className="flex items-start space-x-2">
-                <span className={`text-${project.color}-500 mt-1`}>•</span>
+                <span className={getColorClass(project.color, '500') + " mt-1"}>•</span>
                 <p className="leading-relaxed tracking-wide">{project.subDescription}</p>
               </div>
             )}
@@ -80,7 +119,7 @@ const ProjectTimeline = ({
             <a
               key={i}
               href={link.url}
-              className={`px-4 py-1.5 text-sm bg-white text-${project.color}-600 rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] transition-all duration-300`}
+              className={`px-4 py-1.5 text-sm bg-white ${getColorClass(project.color, '600')} rounded-xl ${getShadowClass(project.color)} transition-all duration-300`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -92,18 +131,33 @@ const ProjectTimeline = ({
     </motion.div>
   );
 
-  const TimelineDot = ({ project }: { project: Project }) => (
-    <motion.div 
-      className="relative"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/3 w-4 h-4 bg-${project.color}-500 rounded-full z-10 shadow-lg`}>
-        <div className="absolute inset-0 bg-white rounded-full m-0.5"></div>
-      </div>
-    </motion.div>
-  );
+  const TimelineDot = ({ project }: { project: Project }) => {
+    const getBgColorClass = (color: string) => {
+      switch (color) {
+        case 'blue':
+          return 'bg-gradient-to-r from-blue-500 to-blue-600';
+        case 'purple':
+          return 'bg-gradient-to-r from-purple-500 to-purple-600';
+        case 'gray':
+          return 'bg-gradient-to-r from-gray-500 to-gray-600';
+        default:
+          return 'bg-gradient-to-r from-gray-500 to-gray-600';
+      }
+    };
+
+    return (
+      <motion.div 
+        className="relative"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className={`absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/3 w-4 h-4 ${getBgColorClass(project.color)} rounded-full z-10 shadow-lg`}>
+          <div className="absolute inset-0 bg-white rounded-full m-0.5"></div>
+        </div>
+      </motion.div>
+    );
+  };
 
   return (
     <div>
@@ -193,12 +247,12 @@ const ProjectTimeline = ({
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400"></div>
                 <div className="relative grid grid-cols-2 gap-8">
                   {mainProjects.map((project) => (
-                    <TimelineDot key={project.id} project={project} />
+                    <TimelineDot key={project.id} project={{ ...project, color: 'blue' }} />
                   ))}
                 </div>
                 <div className="mt-8 grid grid-cols-2 gap-8">
                   {mainProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
+                    <ProjectCard key={project.id} project={{ ...project, color: 'blue' }} index={index} />
                   ))}
                 </div>
               </motion.div>
@@ -216,12 +270,12 @@ const ProjectTimeline = ({
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-purple-600 via-purple-500 to-purple-400"></div>
                 <div className="relative grid grid-cols-4 gap-4">
                   {toyProjects.map((project) => (
-                    <TimelineDot key={project.id} project={project} />
+                    <TimelineDot key={project.id} project={{ ...project, color: 'purple' }} />
                   ))}
                 </div>
                 <div className="mt-8 grid grid-cols-4 gap-4">
                   {toyProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
+                    <ProjectCard key={project.id} project={{ ...project, color: 'purple' }} index={index} />
                   ))}
                 </div>
               </motion.div>
@@ -239,12 +293,12 @@ const ProjectTimeline = ({
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-400"></div>
                 <div className="relative grid grid-cols-2 gap-8">
                   {legacyProjects.map((project) => (
-                    <TimelineDot key={project.id} project={project} />
+                    <TimelineDot key={project.id} project={{ ...project, color: 'gray' }} />
                   ))}
                 </div>
                 <div className="mt-8 grid grid-cols-2 gap-8">
                   {legacyProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
+                    <ProjectCard key={project.id} project={{ ...project, color: 'gray' }} index={index} />
                   ))}
                 </div>
               </motion.div>
