@@ -26,21 +26,23 @@ const Profile = () => {
         </div>
 
         <motion.div
-          className="bg-white p-8 rounded-lg shadow-lg"
+          className="bg-white p-8 rounded-3xl shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]"
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="space-y-6">
+          <div className="space-y-8">
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">사용자 ID</h3>
-              <p className="text-gray-600 bg-gray-50 p-4 rounded-lg">{user.userId}</p>
+              <h3 className="text-lg font-medium text-gray-900 mb-3">사용자 ID</h3>
+              <div className="bg-white p-4 rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff]">
+                <p className="text-gray-600">{user.userId}</p>
+              </div>
             </div>
 
             <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">인증 토큰</h3>
-              <div className="relative">
-                <pre className="text-sm text-gray-600 bg-gray-50 p-4 rounded-lg overflow-x-auto whitespace-pre-wrap break-all">
+              <h3 className="text-lg font-medium text-gray-900 mb-3">인증 토큰</h3>
+              <div className="bg-white p-4 rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff]">
+                <pre className="text-sm text-gray-600 whitespace-pre-wrap break-all">
                   {user.token}
                 </pre>
               </div>

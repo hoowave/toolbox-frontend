@@ -79,10 +79,10 @@ const FAQ = () => {
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
               activeCategory === category
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-blue-600 text-white shadow-[inset_2px_2px_4px_rgba(0,0,0,0.2)]'
+                : 'bg-white text-gray-700 shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff]'
             }`}
           >
             {category}
@@ -96,11 +96,11 @@ const FAQ = () => {
           <motion.div
             key={item.id}
             initial={false}
-            className="border border-gray-200 rounded-lg overflow-hidden"
+            className="bg-white rounded-xl shadow-[2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] overflow-hidden"
           >
             <button
               onClick={() => handleToggle(item.id)}
-              className="w-full px-6 py-4 flex items-center justify-between bg-white hover:bg-gray-50 transition-colors"
+              className="w-full px-6 py-4 flex items-center justify-between hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff] transition-all duration-200"
             >
               <span className="text-left font-medium text-gray-900">
                 {item.question}
@@ -123,7 +123,7 @@ const FAQ = () => {
                   transition={{ duration: 0.2 }}
                   className="border-t border-gray-200"
                 >
-                  <div className="px-6 py-4 bg-gray-50">
+                  <div className="px-6 py-4 bg-white">
                     <p className="text-gray-600">{item.answer}</p>
                   </div>
                 </motion.div>

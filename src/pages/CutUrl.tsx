@@ -101,7 +101,7 @@ const CutUrl = () => {
 
   return (
     <motion.div 
-      className="max-w-4xl mx-auto"
+      className="max-w-4xl mx-auto px-4"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -125,7 +125,7 @@ const CutUrl = () => {
 
       {/* URL Input Form */}
       <motion.div
-        className="bg-white rounded-xl shadow-lg p-6 mb-8"
+        className="relative z-10 bg-white/90 rounded-3xl p-8 shadow-[12px_12px_24px_#bebebe,-12px_-12px_24px_#ffffff] mb-12"
         variants={itemVariants}
       >
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -142,8 +142,8 @@ const CutUrl = () => {
                     value={url}
                     onChange={handleUrlChange}
                     placeholder="https://example.com/very-long-url..."
-                    className={`w-full px-4 h-11 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      url && !isValidUrl ? 'border-red-500' : 'border-gray-300'
+                    className={`w-full px-4 h-11 bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)] ${
+                      url && !isValidUrl ? 'border-red-500' : 'border border-gray-200'
                     }`}
                   />
                   {url && !isValidUrl && (
@@ -156,10 +156,10 @@ const CutUrl = () => {
               <motion.button
                 type="submit"
                 disabled={isLoading || !url || !isValidUrl}
-                className={`px-6 h-11 rounded-lg text-white transition-colors shrink-0 ${
+                className={`px-6 h-11 rounded-xl text-white transition-all shrink-0 shadow-lg ${
                   isLoading || !url || !isValidUrl
                     ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700'
+                    : 'bg-blue-600 hover:shadow-[inset_4px_4px_10px_rgba(0,0,0,0.2)]'
                 }`}
                 whileHover={!isLoading && url && isValidUrl ? { scale: 1.05 } : {}}
                 whileTap={!isLoading && url && isValidUrl ? { scale: 0.95 } : {}}
@@ -174,7 +174,7 @@ const CutUrl = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-4 bg-blue-50 rounded-lg"
+            className="mt-4 p-4 bg-gray-50 rounded-xl shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)]"
           >
             <p className="text-sm text-gray-600 mb-2">변환된 URL:</p>
             <div className="flex items-center gap-2">
@@ -193,11 +193,11 @@ const CutUrl = () => {
 
       {/* Features Section */}
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
         variants={itemVariants}
       >
         <motion.div 
-          className="bg-white rounded-xl shadow-lg p-6"
+          className="relative z-[1] bg-white/90 rounded-3xl p-8 shadow-[12px_12px_24px_#bebebe,-12px_-12px_24px_#ffffff]"
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
@@ -218,7 +218,7 @@ const CutUrl = () => {
         </motion.div>
 
         <motion.div 
-          className="bg-white rounded-xl shadow-lg p-6"
+          className="relative z-[1] bg-white/90 rounded-3xl p-8 shadow-[12px_12px_24px_#bebebe,-12px_-12px_24px_#ffffff]"
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
@@ -245,12 +245,12 @@ const CutUrl = () => {
 
       {/* How to Use Section */}
       <motion.div
-        className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl shadow-lg p-8"
+        className="relative z-[1] bg-white/90 rounded-3xl p-8 shadow-[12px_12px_24px_#bebebe,-12px_-12px_24px_#ffffff] mb-12"
         variants={itemVariants}
         whileHover={{ scale: 1.02 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
-        <h2 className="text-xl font-semibold mb-6">사용 방법</h2>
+        <h2 className="text-xl font-semibold mb-6 text-gray-800">사용 방법</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { emoji: "1️⃣", text: "변환하고 싶은 URL을 입력하세요" },
@@ -259,7 +259,7 @@ const CutUrl = () => {
           ].map((step, index) => (
             <motion.div 
               key={index}
-              className="text-center"
+              className="text-center p-4 bg-gray-50 rounded-xl shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)]"
               variants={featureItemVariants}
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
@@ -272,7 +272,7 @@ const CutUrl = () => {
               >
                 {step.emoji}
               </motion.div>
-              <p>{step.text}</p>
+              <p className="text-gray-600">{step.text}</p>
             </motion.div>
           ))}
         </div>

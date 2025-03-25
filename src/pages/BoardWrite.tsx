@@ -177,7 +177,7 @@ const BoardWrite = () => {
       transition={{ duration: 0.5 }}
       className="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="bg-white rounded-3xl p-8 shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
         <div className="px-6 py-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -207,7 +207,7 @@ const BoardWrite = () => {
                   id="title"
                   value={form.title}
                   onChange={handleChange}
-                  className="block w-full h-12 px-4 rounded-lg border-2 border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 transition-colors"
+                  className="block w-full h-12 px-4 rounded-xl border-2 border-gray-300 shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] focus:border-blue-500 focus:ring-blue-500 transition-all duration-200"
                   placeholder="제목을 입력해주세요"
                   minLength={3}
                   maxLength={100}
@@ -225,7 +225,7 @@ const BoardWrite = () => {
                   id="author"
                   value={form.author}
                   disabled
-                  className="block w-full h-12 px-4 rounded-lg border-2 border-gray-300 bg-gray-50 shadow-sm cursor-not-allowed"
+                  className="block w-full h-12 px-4 rounded-xl border-2 border-gray-300 bg-gray-50 shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] cursor-not-allowed"
                 />
               </div>
             </div>
@@ -253,14 +253,14 @@ const BoardWrite = () => {
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="px-6 py-3 text-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-6 py-3 text-sm font-medium text-gray-700 bg-white rounded-xl shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] transition-all duration-200"
               >
                 취소
               </button>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-6 py-3 text-sm font-medium text-white bg-blue-600 border-2 border-transparent rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                className="px-6 py-3 text-sm font-medium text-white bg-blue-600 rounded-xl shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.2)] disabled:opacity-50 transition-all duration-200"
               >
                 {isSubmitting ? (isEdit ? '수정 중...' : '작성 중...') : (isEdit ? '수정하기' : '작성하기')}
               </button>

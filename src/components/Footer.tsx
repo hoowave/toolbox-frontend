@@ -12,11 +12,11 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-200">
+    <footer className="bg-gray-50/80 backdrop-blur-sm shadow-[inset_0_4px_10px_rgba(0,0,0,0.1)]">
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           {/* About Section */}
-          <div className="text-center">
+          <div className="text-center p-6 rounded-2xl bg-gray-50/80 shadow-[4px_4px_10px_0_rgba(0,0,0,0.1),-4px_-4px_10px_0_rgba(255,255,255,0.9)]">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">About ToolBox</h3>
             <p className="text-gray-600 text-sm">
               누구나 필요한 서비스를 쉽고 안전하게<br />
@@ -25,14 +25,14 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="p-6 rounded-2xl bg-gray-50/80 shadow-[4px_4px_10px_0_rgba(0,0,0,0.1),-4px_-4px_10px_0_rgba(255,255,255,0.9)]">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link 
                   to="/cut-url" 
                   onClick={scrollToTop}
-                  className="text-gray-600 hover:text-blue-600 text-sm transition-colors"
+                  className="text-gray-800 hover:text-blue-600 text-sm transition-all px-4 py-2 rounded-xl block hover:border-b-2 hover:border-blue-600"
                 >
                   URL 단축
                 </Link>
@@ -41,7 +41,7 @@ const Footer = () => {
                 <Link 
                   to="/apiTest" 
                   onClick={scrollToTop}
-                  className="text-gray-600 hover:text-blue-600 text-sm transition-colors"
+                  className="text-gray-800 hover:text-blue-600 text-sm transition-all px-4 py-2 rounded-xl block hover:border-b-2 hover:border-blue-600"
                 >
                   API 테스트
                 </Link>
@@ -50,7 +50,7 @@ const Footer = () => {
                 <Link 
                   to="/about" 
                   onClick={scrollToTop}
-                  className="text-gray-600 hover:text-blue-600 text-sm transition-colors"
+                  className="text-gray-800 hover:text-blue-600 text-sm transition-all px-4 py-2 rounded-xl block hover:border-b-2 hover:border-blue-600"
                 >
                   개발자 소개
                 </Link>
@@ -59,33 +59,33 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="text-center">
+          <div className="text-center p-6 rounded-2xl bg-gray-50/80 shadow-[4px_4px_10px_0_rgba(0,0,0,0.1),-4px_-4px_10px_0_rgba(255,255,255,0.9)]">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Contact</h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li className="flex items-center justify-center">
-                <span>📧</span>
-                <a href="mailto:tkdgns519@gmail.com" className="hover:text-blue-600 transition-colors ml-2">
+                <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-50/80 shadow-[2px_2px_4px_rgba(0,0,0,0.1),-2px_-2px_4px_rgba(255,255,255,0.9)]">📧</span>
+                <a href="mailto:tkdgns519@gmail.com" className="text-gray-800 hover:text-blue-600 transition-all px-4 py-2 rounded-xl hover:border-b-2 hover:border-blue-600 ml-2">
                   Email
                 </a>
               </li>
               <li className="flex items-center justify-center">
-                <span>💻</span>
+                <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-50/80 shadow-[2px_2px_4px_rgba(0,0,0,0.1),-2px_-2px_4px_rgba(255,255,255,0.9)]">💻</span>
                 <a 
                   href="https://github.com/hoowave" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="hover:text-blue-600 transition-colors ml-2"
+                  className="text-gray-800 hover:text-blue-600 transition-all px-4 py-2 rounded-xl hover:border-b-2 hover:border-blue-600 ml-2"
                 >
                   GitHub
                 </a>
               </li>
               <li className="flex items-center justify-center">
-                <span>📝</span>
+                <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-50/80 shadow-[2px_2px_4px_rgba(0,0,0,0.1),-2px_-2px_4px_rgba(255,255,255,0.9)]">📝</span>
                 <a 
                   href="https://hoowave.tistory.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="hover:text-blue-600 transition-colors ml-2"
+                  className="text-gray-800 hover:text-blue-600 transition-all px-4 py-2 rounded-xl hover:border-b-2 hover:border-blue-600 ml-2"
                 >
                   Tech Blog
                 </a>
@@ -96,7 +96,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <motion.div 
-          className="text-center pt-8 mt-8 border-t border-gray-200"
+          className="text-center pt-8 mt-8 border-t border-gray-200/50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}

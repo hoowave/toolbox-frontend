@@ -21,7 +21,7 @@ const ServiceSlide = ({ title, description, icon, link }: {
     exit={{ opacity: 0, x: -100 }}
   >
     <Link to={link}>
-      <div className="bg-white rounded-xl shadow-lg p-4 md:p-8 h-[250px] md:h-[300px] flex flex-col items-center justify-center space-y-4 hover:shadow-xl transition-shadow">
+      <div className="bg-white rounded-3xl p-4 md:p-8 h-[250px] md:h-[300px] flex flex-col items-center justify-center space-y-4 shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:scale-[1.02] transition-all duration-200">
         <div className="text-3xl md:text-4xl mb-2 md:mb-4">{icon}</div>
         <h3 className="text-xl md:text-2xl font-bold text-gray-800 text-center">{title}</h3>
         <p className="text-sm md:text-base text-gray-600 text-center max-w-md">{description}</p>
@@ -181,30 +181,34 @@ const Index = () => {
             </div>
           </div>
           
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 bg-white rounded-full shadow-lg hover:bg-gray-100 flex items-center justify-center transition-colors"
-            aria-label="이전 슬라이드"
-          >
-            <span className="text-gray-600">←</span>
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 bg-white rounded-full shadow-lg hover:bg-gray-100 flex items-center justify-center transition-colors"
-            aria-label="다음 슬라이드"
-          >
-            <span className="text-gray-600">→</span>
-          </button>
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-[8px_8px_16px_#bebebe,-8px_-8px_16px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] flex items-center justify-center transition-all duration-200">
+            <button
+              onClick={prevSlide}
+              className="text-gray-600"
+            >
+              <span>←</span>
+            </button>
+          </div>
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-[8px_8px_16px_#bebebe,-8px_-8px_16px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] flex items-center justify-center transition-all duration-200">
+            <button
+              onClick={nextSlide}
+              className="text-gray-600"
+            >
+              <span>→</span>
+            </button>
+          </div>
         </div>
 
         {/* Slide Indicators */}
-        <div className="flex justify-center mt-4 space-x-2">
+        <div className="flex justify-center mt-4 space-x-3">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                currentSlide === index ? 'bg-blue-600' : 'bg-gray-300'
+              className={`w-3 h-3 rounded-full transition-all ${
+                currentSlide === index 
+                  ? 'bg-blue-600 shadow-[inset_2px_2px_4px_rgba(0,0,0,0.2)]' 
+                  : 'bg-white shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_2px_2px_4px_#bebebe,-2px_-2px_4px_#ffffff]'
               }`}
               aria-label={`슬라이드 ${index + 1}`}
             />
@@ -219,7 +223,7 @@ const Index = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
       >
-        <div className="bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl p-12 shadow-xl">
+        <div className="bg-white/90 rounded-3xl p-12 shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
           <motion.div 
             className="max-w-3xl mx-auto space-y-8"
             initial={{ opacity: 0 }}
@@ -228,24 +232,24 @@ const Index = () => {
           >
             <div className="space-y-6">
               <motion.h2 
-                className="text-3xl font-bold"
+                className="text-3xl font-bold text-gray-800"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 간편한 사용
               </motion.h2>
               <div className="space-y-4">
-                <p className="text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed text-gray-600">
                   긴 URL 및 API 통신 테스트 시 필요한 서비스를 광고, 회원가입 없이 바로바로 사용해보세요.
                 </p>
-                <p className="text-lg leading-relaxed">
+                <p className="text-lg leading-relaxed text-gray-600">
                   본 서비스는 어떠한 개인정보도 수집하지 않으며, 모든 기능을 익명으로 자유롭게 이용하실 수 있습니다.
                 </p>
               </div>
             </div>
             
-            <div className="pt-6 border-t border-white/20">
-              <p className="text-sm text-white/70">
+            <div className="pt-6 border-t border-gray-200">
+              <p className="text-sm text-gray-500">
                 본 서비스를 사용함에 있어 모든 책임은 개인에게 있습니다.
               </p>
             </div>
@@ -260,7 +264,7 @@ const Index = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1 }}
       >
-        <div className="bg-white rounded-xl shadow-lg p-8">
+        <div className="bg-white/90 rounded-3xl p-8 shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
           <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">사용자 후기</h2>
           
           {/* Review Form */}
@@ -273,7 +277,7 @@ const Index = () => {
                 {[1, 2, 3, 4, 5].map((value) => (
                   <FaStar
                     key={value}
-                    className={`cursor-pointer text-2xl ${
+                    className={`cursor-pointer text-2xl transition-colors ${
                       value <= star ? 'text-yellow-400' : 'text-gray-300'
                     }`}
                     onClick={() => setStar(value)}
@@ -288,7 +292,7 @@ const Index = () => {
                   value={review}
                   onChange={(e) => setReview(e.target.value)}
                   placeholder="서비스 사용 후기를 남겨주세요"
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="flex-1 px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)]"
                   maxLength={20}
                   minLength={3}
                   required
@@ -296,7 +300,7 @@ const Index = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2 bg-blue-600 text-white rounded-xl shadow-lg hover:shadow-[inset_4px_4px_10px_rgba(0,0,0,0.2)] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? '등록 중...' : '등록'}
                 </button>
@@ -315,10 +319,11 @@ const Index = () => {
             {reviews.map((review) => (
               <motion.div
                 key={review.id}
-                className="bg-gray-50 p-4 rounded-lg"
+                className="bg-gray-50 p-4 rounded-xl shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
+                whileHover={{ y: -2, transition: { duration: 0.2 } }}
               >
                 <div className="flex items-center mb-2">
                   <div className="flex space-x-1">
@@ -346,7 +351,7 @@ const Index = () => {
               <button
                 onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
-                className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+                className="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-50 rounded-xl shadow-md hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] disabled:opacity-50 transition-all"
               >
                 이전
               </button>
@@ -354,10 +359,10 @@ const Index = () => {
                 <button
                   key={`page-${page}`}
                   onClick={() => setCurrentPage(page)}
-                  className={`px-3 py-1 text-sm font-medium rounded-md ${
+                  className={`px-3 py-1 text-sm font-medium rounded-xl transition-all ${
                     currentPage === page
-                      ? 'bg-blue-600 text-white'
-                      : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                      ? 'bg-blue-600 text-white shadow-[inset_2px_2px_5px_rgba(0,0,0,0.2)]'
+                      : 'text-gray-700 bg-gray-50 shadow-md hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)]'
                   }`}
                 >
                   {page}
@@ -366,7 +371,7 @@ const Index = () => {
               <button
                 onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+                className="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-50 rounded-xl shadow-md hover:shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1)] disabled:opacity-50 transition-all"
               >
                 다음
               </button>

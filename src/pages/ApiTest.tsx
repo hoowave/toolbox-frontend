@@ -102,12 +102,12 @@ const ApiTest = () => {
 
       {/* API Documentation */}
       <motion.div
-        className="bg-white rounded-xl shadow-lg overflow-hidden mb-8"
+        className="relative z-10 bg-white/90 rounded-3xl shadow-[12px_12px_24px_#bebebe,-12px_-12px_24px_#ffffff] overflow-hidden mb-12"
         variants={itemVariants}
       >
         <button
           onClick={() => setIsDocsOpen(!isDocsOpen)}
-          className="w-full px-6 py-4 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
+          className="w-full px-6 py-4 flex items-center justify-between bg-gray-50/80 hover:bg-gray-100/80 transition-colors"
         >
           <h2 className="text-xl font-semibold text-gray-800">API 명세서</h2>
           <motion.span
@@ -130,7 +130,7 @@ const ApiTest = () => {
             >
               <div className="p-6 space-y-6">
                 {/* GET Documentation */}
-                <div className="border rounded-lg overflow-hidden">
+                <div className="border rounded-xl overflow-hidden shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)]">
                   <button
                     onClick={() => setIsGetDocsOpen(!isGetDocsOpen)}
                     className="w-full px-4 py-3 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
@@ -179,7 +179,7 @@ const ApiTest = () => {
                 </div>
 
                 {/* POST Documentation */}
-                <div className="border rounded-lg overflow-hidden">
+                <div className="border rounded-xl overflow-hidden shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)]">
                   <button
                     onClick={() => setIsPostDocsOpen(!isPostDocsOpen)}
                     className="w-full px-4 py-3 flex items-center justify-between bg-gray-50 hover:bg-gray-100 transition-colors"
@@ -246,7 +246,7 @@ const ApiTest = () => {
       >
         {/* GET Test */}
         <motion.div
-          className="bg-white rounded-xl shadow-lg p-6"
+          className="relative z-[1] bg-white/90 rounded-3xl p-6 shadow-[12px_12px_24px_#bebebe,-12px_-12px_24px_#ffffff]"
           whileHover={{ scale: 1.01 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
@@ -263,7 +263,7 @@ const ApiTest = () => {
                 max="10"
                 value={getId}
                 onChange={(e) => setGetId(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 rounded-xl bg-gray-50 shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)] focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <button
@@ -278,7 +278,7 @@ const ApiTest = () => {
             {getResult && (
               <div className="mt-4">
                 <p className="text-sm font-medium text-gray-600 mb-2">응답 결과:</p>
-                <pre className="bg-gray-50 p-3 rounded-lg overflow-x-auto">
+                <pre className="bg-gray-50 p-3 rounded-xl shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)] overflow-x-auto">
                   {JSON.stringify(getResult, null, 2)}
                 </pre>
               </div>
@@ -288,7 +288,7 @@ const ApiTest = () => {
 
         {/* POST Test */}
         <motion.div
-          className="bg-white rounded-xl shadow-lg p-6"
+          className="relative z-[1] bg-white/90 rounded-3xl p-6 shadow-[12px_12px_24px_#bebebe,-12px_-12px_24px_#ffffff]"
           whileHover={{ scale: 1.01 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
@@ -303,7 +303,7 @@ const ApiTest = () => {
                 value={postData}
                 onChange={(e) => setPostData(e.target.value)}
                 rows={5}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+                className="w-full px-4 py-2 rounded-xl bg-gray-50 shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)] focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
               />
             </div>
             <button
@@ -318,7 +318,7 @@ const ApiTest = () => {
             {postResult && (
               <div className="mt-4">
                 <p className="text-sm font-medium text-gray-600 mb-2">응답 결과:</p>
-                <pre className="bg-gray-50 p-3 rounded-lg overflow-x-auto">
+                <pre className="bg-gray-50 p-3 rounded-xl shadow-[inset_4px_4px_10px_rgba(0,0,0,0.06)] overflow-x-auto">
                   {JSON.stringify(postResult, null, 2)}
                 </pre>
               </div>

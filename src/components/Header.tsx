@@ -24,7 +24,9 @@ const DropdownMenu = ({ items, isOpen }: DropdownMenuProps) => {
               <Link
                 key={index}
                 to={item.to}
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                target={item.to.startsWith('http') ? '_blank' : undefined}
+                rel={item.to.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-all rounded-lg mx-2"
               >
                 {item.label}
               </Link>
@@ -32,7 +34,7 @@ const DropdownMenu = ({ items, isOpen }: DropdownMenuProps) => {
               <button
                 key={index}
                 onClick={item.onClick}
-                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 transition-all rounded-lg mx-2"
               >
                 {item.label}
               </button>
@@ -61,7 +63,7 @@ const Header = () => {
     ],
     developer: [
       { label: '소개', to: '/about' },
-      { label: '기술블로그', to: 'https://github.com/hoowave' },
+      { label: '기술블로그', to: 'https://hoowave.tistory.com' },
       { label: 'Github', to: 'https://github.com/hoowave' }
     ],
     user: [
@@ -93,7 +95,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-white shadow-sm">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex flex-col sm:flex-row justify-between items-center h-auto sm:h-16 py-2 sm:py-0">
           <div className="hidden sm:block sm:w-1/5"></div>
@@ -192,7 +194,7 @@ const Header = () => {
               <div className="flex items-center space-x-2 sm:space-x-4 px-2 sm:px-4">
                 <Link
                   to="/signup"
-                  className="px-3 py-1 sm:px-4 sm:py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors text-sm sm:text-base"
+                  className="px-3 py-1 sm:px-4 sm:py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors text-sm sm:text-base border border-blue-600 rounded-lg hover:bg-blue-50"
                 >
                   회원가입
                 </Link>

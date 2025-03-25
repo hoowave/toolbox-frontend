@@ -113,9 +113,9 @@ const Contact = () => {
         </p>
       </div>
 
-      <div className="bg-white shadow-md rounded-lg overflow-hidden overflow-x-auto">
+      <div className="bg-white rounded-3xl p-8 shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] overflow-hidden overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200 table-fixed">
-          <thead className="bg-gray-50">
+          <thead>
             <tr>
               <th className="px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-16">
                 순번
@@ -134,7 +134,7 @@ const Contact = () => {
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="divide-y divide-gray-200">
             {contacts.map((contact, index) => {
               const statusInfo = getBoardStatusInfo(contact.status);
               const itemNumber = (currentPage - 1) * 5 + index + 1;
@@ -154,7 +154,7 @@ const Contact = () => {
                     }
                     handleRowClick(contact);
                   }}
-                  className="hover:bg-gray-50 cursor-pointer transition-colors"
+                  className="hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] cursor-pointer transition-all duration-200 rounded-xl"
                 >
                   <td className="px-4 py-3 whitespace-nowrap text-center">
                     <div className="text-sm text-gray-500">{itemNumber}</div>
@@ -197,7 +197,7 @@ const Contact = () => {
         {user ? (
           <button
             onClick={() => navigate('/contact/write')}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-xl shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.2)] transition-all duration-200"
           >
             문의하기
           </button>
@@ -217,7 +217,7 @@ const Contact = () => {
             key="prev"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+            className="px-3 py-1 text-sm font-medium text-gray-700 bg-white rounded-xl shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] disabled:opacity-50 transition-all duration-200"
           >
             이전
           </button>
@@ -225,10 +225,10 @@ const Contact = () => {
             <button
               key={`page-${page}`}
               onClick={() => handlePageChange(page)}
-              className={`px-3 py-1 text-sm font-medium rounded-md ${
+              className={`px-3 py-1 text-sm font-medium rounded-xl transition-all duration-200 ${
                 currentPage === page
-                  ? 'bg-blue-600 text-white'
-                  : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                  ? 'bg-blue-600 text-white shadow-[inset_4px_4px_8px_rgba(0,0,0,0.2)]'
+                  : 'text-gray-700 bg-white shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff]'
               }`}
             >
               {page}
@@ -238,7 +238,7 @@ const Contact = () => {
             key="next"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+            className="px-3 py-1 text-sm font-medium text-gray-700 bg-white rounded-xl shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] disabled:opacity-50 transition-all duration-200"
           >
             다음
           </button>

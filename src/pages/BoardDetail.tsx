@@ -150,15 +150,9 @@ const BoardDetail = () => {
       transition={{ duration: 0.5 }}
       className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+      <div className="bg-white rounded-3xl p-8 shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff]">
         <div className="p-8">
           <div className="flex items-center justify-between mb-6">
-            <button
-              onClick={() => navigate(`/${category}/1`)}
-              className="text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              ← 목록으로
-            </button>
             <span className="text-sm text-gray-500">
               조회수: {board.hit}
             </span>
@@ -184,28 +178,34 @@ const BoardDetail = () => {
         </div>
       </div>
 
-      {isAuthor && (
-        <div className="flex justify-end mt-4">
+      <div className="flex justify-between items-center mt-6">
+        <button
+          onClick={() => navigate(`/${category}/1`)}
+          className="text-gray-600 hover:text-gray-900 transition-colors px-4 py-2 rounded-xl bg-white shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] transition-all duration-200"
+        >
+          ← 목록으로
+        </button>
+        {isAuthor && (
           <div className="relative">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none shadow-sm"
+              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-xl shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] hover:shadow-[inset_4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] transition-all duration-200"
             >
               관리 메뉴 {isMenuOpen ? '▲' : '▼'}
             </button>
             
             {isMenuOpen && (
-              <div className="absolute right-0 bottom-full mb-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+              <div className="absolute right-0 top-full mt-2 w-48 rounded-xl shadow-[4px_4px_8px_#bebebe,-4px_-4px_8px_#ffffff] bg-white ring-1 ring-black ring-opacity-5 z-10">
                 <div className="py-1" role="menu">
                   <button
                     onClick={handleEdit}
-                    className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                    className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 text-left transition-all duration-200"
                   >
                     수정하기
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100 text-left border-t border-gray-100"
+                    className="block w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-50 text-left border-t border-gray-100 transition-all duration-200"
                   >
                     삭제하기
                   </button>
@@ -213,8 +213,8 @@ const BoardDetail = () => {
               </div>
             )}
           </div>
-        </div>
-      )}
+        )}
+      </div>
       <Toast toast={toast} onClose={() => setToast(null)} />
     </motion.div>
   );
