@@ -31,9 +31,26 @@ const About = () => {
       title: "아뮤즈",
       date: "2024.03 ~ 2025.03",
       role: "모바일서비스개발팀 · 사원",
-      description: "Kotlin, Flutter 모바일 앱 개발",
+      description: "IoT TV 제어 앱 개발",
       details: [
-        "추후 작성 예정",
+        "Android Jetpack Compose 기반 UI/UX 구현",
+        "Bluetooth HID Spec 적용 및 다수의 디바이스에서 Bluetooth 입력 전달 기능 구현",
+        "Bluetooth HID 프로토콜을 기반으로 안정적인 데이터 전송 구조 설계",
+        "ConnectSDK 적용을 통한 내부망(Wi-Fi) 기반 TV 제어 기능 개발"
+      ],
+      color: "emerald"
+    },
+    {
+      id: 3,
+      title: "아뮤즈",
+      date: "2024.03 ~ 2025.03",
+      role: "모바일서비스개발팀 · 사원",
+      description: "AI 교구 로봇 앱 개발",
+      details: [
+        "Flutter 기반 AI 교구 로봇 앱, 웹 개발 및 UI/UX 구현",
+        "UnixSocket 통신을 활용하여 AI 모듈과의 실시간 데이터 처리 기능 개발",
+        "WebSocket을 이용해 각 디바이스 간 실시간 데이터 송수신 기능 구축",
+        "Raspberry Pi 및 웹 환경에서 요구사항에 맞춘 실시간 양방향 데이터 처리 구현"
       ],
       color: "emerald"
     }
