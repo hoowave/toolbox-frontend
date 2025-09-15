@@ -18,7 +18,7 @@ const BasicInfo = () => {
             <h3 className="font-semibold mb-2 text-blue-600">개인정보</h3>
             <ul className="space-y-1.5 md:space-y-2 pl-4">
               <li>• 나이: 27세 (1998년생)</li>
-              <li>• 거주지: 부산광역시</li>
+              <li>• 거주지: 서울</li>
             </ul>
           </div>
           
@@ -62,9 +62,9 @@ const BasicInfo = () => {
             </thead>
             <tbody className="divide-y divide-gray-200/50">
               <tr className="hover:bg-gray-50/50 transition-colors">
-                <td className="py-2 md:py-3 px-2 md:px-4 text-gray-700">정보보안기사 필기</td>
+                <td className="py-2 md:py-3 px-2 md:px-4 text-gray-700">정보보안기사</td>
                 <td className="py-2 md:py-3 px-2 md:px-4 text-gray-600">한국방송통신전파진흥원</td>
-                <td className="py-2 md:py-3 px-2 md:px-4 text-gray-600">2024.10</td>
+                <td className="py-2 md:py-3 px-2 md:px-4 text-gray-600">2025.08</td>
               </tr>
               <tr className="hover:bg-gray-50/50 transition-colors">
                 <td className="py-2 md:py-3 px-2 md:px-4 text-gray-700">정보처리기사</td>

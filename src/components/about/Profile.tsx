@@ -22,7 +22,7 @@ const Profile = () => {
           </div>
         </div>
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">장상훈</h1>
-        <p className="text-base md:text-lg text-gray-600">Backend Developer / Engineer</p>
+        <p className="text-base md:text-lg text-gray-600">Security Engineer</p>
       </motion.div>
 
       {/* Core Values */}

@@ -57,11 +57,22 @@ const About = () => {
   ];
 
   const mainProjects: Project[] = [
-    {
-      id: 1,
+      {
+        id: 1,
+        title: "Netty & Hibernate TCP Server",
+        date: "2025.04.01 ~ 2025.05.01",
+        description: "",
+        subDescription: "헥사고날 아키텍처를 적용하여 도메인 로직과 인프라를 분리한 확장 가능한 서버 아키텍처 구현",
+        links: [
+          { text: "GitHub 링크 👉", url: "https://github.com/hoowave/Netty-Hibernate-TCP-Server" }
+        ],
+        color: "blue"
+      },
+      {
+      id: 2,
       title: "Toolbox",
-      date: "2025.02.01 ~ 현재",
-      description: "백엔드 API 서버 개발, 프론트엔드 인터페이스 구현 및 AWS 배포",
+      date: "2025.02.01 ~ 2025.04.01",
+      description: "",
       subDescription: "누구나 필요한 서비스를, 누구나 쉽게 사용할 수 있도록 만드는 프로젝트",
       links: [
         { text: "Backend 👉", url: "https://github.com/hoowave/toolbox-backend" },
@@ -70,13 +81,12 @@ const About = () => {
       color: "blue"
     },
     {
-      id: 2,
+      id: 3,
       title: "SecuriSuite",
       date: "2024.01.10 ~ 2024.02.05",
-      description: "API 서버 개발 및 인터페이스 제작, 도커 배포",
+      description: "",
       subDescription: [
-        "브라우저에서 정보 보안 도구를 사용하기 위한 그래픽 인터페이스",
-        "기존 JSP 기반의 \"라메르 사이트\"를 현대적인 웹 개발 표준으로 전면 리팩토링"
+        "Kali Linux 환경에서 정보 보안 도구를 사용하기 위한 그래픽 인터페이스",
       ],
       links: [
         { text: "GitHub 링크 👉", url: "https://github.com/hoowave/SecuriSuite" }
@@ -90,9 +100,9 @@ const About = () => {
       id: 3,
       title: "Flutter FFI Memory Patch",
       date: "2024.10.01 ~ 2024.11.01",
-      description: "Flutter와 C++ DLL을 FFI로 연동하여 Windows 메모리 패치 프로그램 개발",
+      description: "",
       subDescription: [
-        "Windows API를 활용한 프로세스 메모리 접근 및 수정 기능 구현",
+        "Flutter와 C++ DLL을 FFI로 연동하여 Windows 메모리 패치 프로그램 개발",
       ],
       links: [
         { text: "GitHub 링크 👉", url: "https://github.com/hoowave/flutter_ffi_memory_patch" }
@@ -103,7 +113,7 @@ const About = () => {
       id: 4,
       title: "Android 개발 템플릿",
       date: "2024.09.01 ~ 2024.10.01",
-      description: "Android 개발을 위한 최신 아키텍처 기반의 템플릿 개발",
+      description: "",
       subDescription: [
         "Jetpack Compose, KSP, MVVM, Hilt를 결합하여 효율적인 개발 환경 구축",
       ],
@@ -116,7 +126,7 @@ const About = () => {
       id: 5,
       title: "선착순 쿠폰 발급 시스템",
       date: "2023.12.01 ~ 2024.01.01",
-      description: "데이터의 성능과 정합성에 대한 고민",
+      description: "",
       subDescription: "Redis를 사용하여 성능 향상 및 Kafka를 사용하여 몰리는 트래픽 처리",
       links: [
         { text: "GitHub 링크 👉", url: "https://github.com/hoowave/coupon-system" }
@@ -127,7 +137,8 @@ const About = () => {
       id: 6,
       title: "캐치테이블 예약시스템",
       date: "2023.11.01 ~ 2023.12.01",
-      description: "DDD(도메인 주도 개발)을 통한 MSA기반 API서버 개발",
+      description: "",
+      subDescription: "DDD(도메인 주도 개발)을 통한 MSA기반 API서버 개발",
       links: [
         { text: "GitHub 링크 👉", url: "https://github.com/hoowave/Catchtable" }
       ],
@@ -140,7 +151,7 @@ const About = () => {
       id: 7,
       title: "라메르사이트",
       date: "2023.07.01 ~ 2023.09.01",
-      description: "쉘 스크립트 작성 및 데이터 처리",
+      description: "",
       subDescription: "웹에서 사용자의 입력을 받아 리눅스 명령을 수행하여 결과를 반환하는 사이트 도구",
       links: [
         { text: "GitHub 링크 👉", url: "https://github.com/hoowave/Legacy_Project_Lamer" }
@@ -151,7 +162,7 @@ const About = () => {
       id: 8,
       title: "장뽕뽕 사이트",
       date: "2023.01.01 ~ 현재",
-      description: "화면 설계 및 서비스기획",
+      description: "",
       subDescription: "광물 캐서 무기 강화하기 콘셉트의 게임 및 커뮤니티 사이트",
       links: [
         { text: "사이트 링크 👉", url: "http://hoowave.dothome.co.kr" }

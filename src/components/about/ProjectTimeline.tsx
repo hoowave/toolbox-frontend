@@ -245,14 +245,14 @@ const ProjectTimeline = ({
                 transition={{ duration: 0.3 }}
               >
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400"></div>
-                <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                   {mainProjects.map((project) => (
-                    <TimelineDot key={project.id} project={{ ...project, color: 'blue' }} />
+                    <TimelineDot key={`main-${project.id}`} project={{ ...project, color: 'blue' }} />
                   ))}
                 </div>
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                   {mainProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={{ ...project, color: 'blue' }} index={index} />
+                    <ProjectCard key={`main-${project.id}`} project={{ ...project, color: 'blue' }} index={index} />
                   ))}
                 </div>
               </motion.div>
@@ -270,12 +270,12 @@ const ProjectTimeline = ({
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-purple-600 via-purple-500 to-purple-400"></div>
                 <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   {toyProjects.map((project) => (
-                    <TimelineDot key={project.id} project={{ ...project, color: 'purple' }} />
+                    <TimelineDot key={`toy-${project.id}`} project={{ ...project, color: 'purple' }} />
                   ))}
                 </div>
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   {toyProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={{ ...project, color: 'purple' }} index={index} />
+                    <ProjectCard key={`toy-${project.id}`} project={{ ...project, color: 'purple' }} index={index} />
                   ))}
                 </div>
               </motion.div>
@@ -293,12 +293,12 @@ const ProjectTimeline = ({
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-400"></div>
                 <div className="relative grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   {legacyProjects.map((project) => (
-                    <TimelineDot key={project.id} project={{ ...project, color: 'gray' }} />
+                    <TimelineDot key={`legacy-${project.id}`} project={{ ...project, color: 'gray' }} />
                   ))}
                 </div>
                 <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                   {legacyProjects.map((project, index) => (
-                    <ProjectCard key={project.id} project={{ ...project, color: 'gray' }} index={index} />
+                    <ProjectCard key={`legacy-${project.id}`} project={{ ...project, color: 'gray' }} index={index} />
                   ))}
                 </div>
               </motion.div>
@@ -310,13 +310,13 @@ const ProjectTimeline = ({
             <div className="relative">
               <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-400"></div>
               <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-                {allProjects.slice(0, 3).map((project) => (
-                  <TimelineDot key={project.id} project={project} />
+                {allProjects.slice(0, 3).map((project, idx) => (
+                  <TimelineDot key={`${project.title}-${project.date}-top-${idx}`} project={project} />
                 ))}
               </div>
               <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                 {allProjects.slice(0, 3).map((project, index) => (
-                  <ProjectCard key={project.id} project={project} index={index} />
+                  <ProjectCard key={`${project.title}-${project.date}-top-${index}`} project={project} index={index} />
                 ))}
               </div>
             </div>
@@ -325,13 +325,13 @@ const ProjectTimeline = ({
               <div className="relative">
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-blue-600 via-purple-500 to-purple-400"></div>
                 <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-                  {allProjects.slice(3, 6).map((project) => (
-                    <TimelineDot key={project.id} project={project} />
+                  {allProjects.slice(3, 6).map((project, idx) => (
+                    <TimelineDot key={`${project.title}-${project.date}-mid-${idx}`} project={project} />
                   ))}
                 </div>
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                   {allProjects.slice(3, 6).map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
+                    <ProjectCard key={`${project.title}-${project.date}-mid-${index}`} project={project} index={index} />
                   ))}
                 </div>
               </div>
@@ -341,13 +341,13 @@ const ProjectTimeline = ({
               <div className="relative">
                 <div className="absolute left-0 right-0 top-0 h-1 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-400"></div>
                 <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-                  {allProjects.slice(6).map((project) => (
-                    <TimelineDot key={project.id} project={project} />
+                  {allProjects.slice(6).map((project, idx) => (
+                    <TimelineDot key={`${project.title}-${project.date}-bot-${idx}`} project={project} />
                   ))}
                 </div>
                 <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                   {allProjects.slice(6).map((project, index) => (
-                    <ProjectCard key={project.id} project={project} index={index} />
+                    <ProjectCard key={`${project.title}-${project.date}-bot-${index}`} project={project} index={index} />
                   ))}
                 </div>
               </div>
